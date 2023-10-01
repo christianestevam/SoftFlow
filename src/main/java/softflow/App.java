@@ -29,7 +29,7 @@ public class App {
                     FileWriter fileWriter = new FileWriter(csvFileName);
                     CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)
                 ){
-                    List<String> header = Arrays.asList("Nome","Email","Idade","Linguagem","Descricao","Disponibilidade");
+                    List<String> header = Arrays.asList("nome","email","idade","stack","descricao","disponibilidade");
                     csvPrinter.printRecord(header);
 
                 }catch(IOException e){

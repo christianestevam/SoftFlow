@@ -25,14 +25,14 @@ public class AddDesenvolvedor {
       System.out.print("Idade: ");
       int idade = scanner.nextInt();
       scanner.nextLine();
-      System.out.print("Linguagem: ");
-      String linguagem = scanner.nextLine();
+      System.out.print("Stack: ");
+      String stack = scanner.nextLine();
       System.out.print("Descricao: ");
       String descricao = scanner.nextLine();
       System.out.print("Disponibilidade: ");
       String disponibilidade = scanner.nextLine();
 
-      List<String> d1 = Arrays.asList(nome, email, String.valueOf(idade), linguagem, descricao, disponibilidade);
+      List<String> d1 = Arrays.asList(nome, email, String.valueOf(idade), stack, descricao, disponibilidade);
       csvPrinter.printRecord(d1);
 
       TerminalUtils.limparTerminal();
