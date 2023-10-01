@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class LerCSV {
 
-  public void lerCSV(String csvFileName) {
+  public void lerCSV(String csvFileName) throws IOException {
     boolean primeiraLinha = true;
     int total = 0;
 

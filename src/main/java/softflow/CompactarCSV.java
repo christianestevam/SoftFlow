@@ -1,44 +1,35 @@
 package softflow;
 
 import java.io.*;
-import java.util.zip.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class CompactarCSV {
 
-  public void compactarCSV(){
+  public void compactarCSV(String csvFileName) throws IOException {
 
-  }
+    String zipFileName = "desenvolvedores.zip";
 
-  public static void zipDirectory(String sourceFolder, String zipFileName) throws IOException {
-      File sourceFolderFile = new File(sourceFolder);
-      File zipFile = new File(zipFileName);
+    // Criar o arquivo ZIP
+    FileOutputStream fos = new FileOutputStream(zipFileName);
+    ZipOutputStream zos = new ZipOutputStream(fos);
 
-      try (FileOutputStream fos = new FileOutputStream(zipFile);
-           ZipOutputStream zos = new ZipOutputStream(fos)) {
+    // Adicionar o arquivo CSV ao arquivo ZIP
+    File file = new File(csvFileName);
+    ZipEntry entry = new ZipEntry(file.getName());
+    zos.putNextEntry(entry);
 
-          zipFolder(sourceFolderFile, sourceFolderFile.getName(), zos);
+    // Ler o arquivo CSV e adicioná-lo ao arquivo ZIP
+    byte[] buffer = new byte[1024];
+    int bytesRead;
+    FileInputStream fis = new FileInputStream(csvFileName);
+    while ((bytesRead = fis.read(buffer)) != -1) {
+      zos.write(buffer, 0, bytesRead);
     }
-  }
 
-  private static void zipFolder(File folder, String parentFolder, ZipOutputStream zos) throws IOException {
-      for (File file : folder.listFiles()) {
-          if (file.isDirectory()) {
-              zipFolder(file, parentFolder + "/" + file.getName(), zos);
-              continue;
-          }
+    // Fechar o arquivo ZIP
+    zos.close();
+    fis.close();
 
-          try (FileInputStream fis = new FileInputStream(file)) {
-              String entryName = parentFolder + "/" + file.getName();
-              ZipEntry zipEntry = new ZipEntry(entryName);
-              zos.putNextEntry(zipEntry);
-
-              byte[] buffer = new byte[1024];
-              int len;
-              while ((len = fis.read(buffer)) > 0) {
-                  zos.write(buffer, 0, len);
-              }
-              zos.closeEntry();
-          }
-      }
   }
 }

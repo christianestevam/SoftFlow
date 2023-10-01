@@ -9,7 +9,7 @@ import org.apache.commons.csv.CSVPrinter;
 
 public class AddDesenvolvedor {
 
-  public void addDesenvolvedor(String csvFileName) {
+  public void addDesenvolvedor(String csvFileName) throws IOException {
 
     Scanner scanner = new Scanner(System.in);
 

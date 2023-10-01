@@ -1,0 +1,8 @@
+softflow\ConversorCSVparaXML.class
+softflow\AddDesenvolvedor.class
+softflow\CompactarCSV.class
+softflow\LerCSV.class
+softflow\TerminalUtils.class
+softflow\App.class
+softflow\ConversorCSVparaJSON.class
+softflow\Desenvolvedor.class
