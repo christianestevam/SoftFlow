@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ArrayList>
+  <item>
+    <nome>Chris</nome>
+    <email>chris@mail.com</email>
+    <idade>21</idade>
+    <stack>"Clojure</stack>
+    <descricao>Java e SpringBoot"</descricao>
+    <disponibilidade>Desenvolvedor experiente</disponibilidade>
+  </item>
+  <item>
+    <nome>Antony</nome>
+    <email>antony@mail.com</email>
+    <idade>22</idade>
+    <stack>"C++</stack>
+    <descricao>TypeScript e React"</descricao>
+    <disponibilidade>Desenvolvedor apaixonado com 4 anos de experiência</disponibilidade>
+  </item>
+  <item>
+    <nome>Regis</nome>
+    <email>regis@mail.com</email>
+    <idade>40</idade>
+    <stack>"Python</stack>
+    <descricao>Java e Spring Boot"</descricao>
+    <disponibilidade>Pesquisar e Programador da UFC</disponibilidade>
+  </item>
+</ArrayList>
