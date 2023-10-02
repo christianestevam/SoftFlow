@@ -2,7 +2,6 @@ package softflow;
 
 import java.io.*;
 import java.security.MessageDigest;
-import java.util.Scanner;
 
 public class CalcularHash {
 
@@ -31,7 +30,7 @@ public class CalcularHash {
 
       fis.close();
 
-    } catch (Exception e) {
+    } catch(Exception e) {
       e.printStackTrace();
     }
   }

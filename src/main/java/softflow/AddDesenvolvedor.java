@@ -1,11 +1,10 @@
 package softflow;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+
+import java.io.*;
+import java.util.*;
 
 public class AddDesenvolvedor {
 
@@ -38,10 +37,8 @@ public class AddDesenvolvedor {
       TerminalUtils.limparTerminal();
       System.out.println("Criado com sucesso!\n");
 
-    } catch (IOException e) {
+    } catch(IOException e) {
       e.printStackTrace();
     }
-
   }
-
 }

@@ -4,12 +4,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
-public class LerCSV {
+public class ImprimirCSV {
 
-  public void lerCSV(String csvFileName) throws IOException {
+  public void imprimirCSV(String csvFileName) throws IOException {
     boolean primeiraLinha = true;
     int total = 0;
 
@@ -32,7 +31,7 @@ public class LerCSV {
         System.out.println("    Nome: " + record.get(0) + ";");
         System.out.println("    Email: " + record.get(1) + ";");
         System.out.println("    Idade: " + record.get(2) + ";");
-        System.out.println("    Linguagem: " + record.get(3) + ";");
+        System.out.println("    Stack: " + record.get(3) + ";");
         System.out.println("    Descricao: " + record.get(4) + ";");
         System.out.println("    Disponibilidade: " + record.get(5) + ";");
         System.out.println("}");
@@ -42,9 +41,8 @@ public class LerCSV {
 
       System.out.println("Total: " + total + "\n");
 
-    }catch(IOException e){
+    } catch(IOException e) {
       e.printStackTrace();
     }
   }
-
 }
