@@ -1,0 +1,22 @@
+[ {
+  "nome" : "Chris",
+  "email" : "chris@mail.com",
+  "idade" : "21",
+  "stack" : "Clojure, Java e SpringBoot",
+  "descricao" : "Desenvolvedor experiente",
+  "disponibilidade" : "8 as 10"
+}, {
+  "nome" : "Antony",
+  "email" : "antony@mail.com",
+  "idade" : "22",
+  "stack" : "C++, TypeScript e React",
+  "descricao" : "Desenvolvedor apaixonado com 4 anos de experiência",
+  "disponibilidade" : "8 as 10"
+}, {
+  "nome" : "Regis",
+  "email" : "regis@mail.com",
+  "idade" : "40",
+  "stack" : "Python, Java e Spring Boot",
+  "descricao" : "Pesquisar e Programador da UFC",
+  "disponibilidade" : "10 as 12 hrs"
+} ]

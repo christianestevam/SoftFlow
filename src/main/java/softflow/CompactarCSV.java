@@ -30,6 +30,5 @@ public class CompactarCSV {
     // Fechar o arquivo ZIP
     zos.close();
     fis.close();
-
   }
 }

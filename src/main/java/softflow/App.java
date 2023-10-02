@@ -1,14 +1,13 @@
 package softflow;
 
+import java.io.*;
+import java.util.*;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
-
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         TerminalUtils.limparTerminal();
 
@@ -32,7 +31,7 @@ public class App {
                     List<String> header = Arrays.asList("nome","email","idade","stack","descricao","disponibilidade");
                     csvPrinter.printRecord(header);
 
-                }catch(IOException e){
+                } catch(IOException e) {
                     e.printStackTrace();
                 }
 
@@ -41,16 +40,16 @@ public class App {
                 try {
                     AddDesenvolvedor addDesenvolvedor = new AddDesenvolvedor();
                     addDesenvolvedor.addDesenvolvedor(csvFileName);
-                } catch (Exception e) {
+                } catch(Exception e) {
                     e.printStackTrace();
                 }
 
             }else if(opc == 2){ // Imprimir Desenvolvedores 
 
                 try {
-                    LerCSV lerCSV = new LerCSV();
-                    lerCSV.lerCSV(csvFileName);
-                } catch (Exception e) {
+                    ImprimirCSV imprimirCSV = new ImprimirCSV();
+                    imprimirCSV.imprimirCSV(csvFileName);
+                } catch(Exception e) {
                     e.printStackTrace();
                 }
 
@@ -59,26 +58,35 @@ public class App {
                 try {
                     CompactarCSV compactarCSV = new CompactarCSV();
                     compactarCSV.compactarCSV(csvFileName);
-                } catch (Exception e) {
+                } catch(Exception e) {
                     e.printStackTrace();
                 }
 
             }else if(opc == 4){ // Gerar JSON
 
-                //ConversorCSVparaJSON conv_json = new ConversorCSVparaJSON();
+                try {
+                    ConversorCSVparaJSON conv_json = new ConversorCSVparaJSON();
+                    conv_json.converterCSVparaJSON(csvFileName);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
 
 
             }else if(opc == 5){ // Gerar XML
 
-                //ConversorCSVparaXML conv_xml = new ConversorCSVparaXML();
-                //conv_xml.converterXML();
+                try {
+                    ConversorCSVparaXML conversorCSVparaXML = new ConversorCSVparaXML();
+                    conversorCSVparaXML.converterCSVparaXML(csvFileName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }else if(opc == 6){ // Calcular hash (SHA256)
 
                 try {
                     CalcularHash calcularHash = new CalcularHash();
                     calcularHash.calcularHash(csvFileName);
-                } catch (Exception e) {
+                } catch(Exception e) {
                     e.printStackTrace();
                 }
 

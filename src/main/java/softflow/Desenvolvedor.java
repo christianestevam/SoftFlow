@@ -45,5 +45,4 @@ public class Desenvolvedor {
   public String toString() {
     return nome + "," + email + "," + idade + "," + stack + "," + descricao + "," + disponibilidade;
   }
-
 }

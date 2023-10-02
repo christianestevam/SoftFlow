@@ -1,34 +1,70 @@
 package softflow;
 
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class ConversorCSVparaXML {
 
-    public static void main(String[] args) {
-        try {
+  public void converterCSVparaXML(String csvFileName) {
 
-            CsvMapper csvMapper = new CsvMapper();
+    String xmlFileName = "desenvolvedores.xml";
 
-            File csvFile = new File("desenvolvedor.csv"); 
+    try {
+      List<Desenvolvedor> dados = lerDadosDoCSV(csvFileName);
 
-            MappingIterator<Desenvolvedor> desenvolvedorIterator = csvMapper.readerWithTypedSchemaFor(Desenvolvedor.class).readValues(csvFile);
+      XmlMapper xmlMapper = new XmlMapper();
+      xmlMapper.enable(SerializationFeature.INDENT_OUTPUT);
+      xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true);
+      xmlMapper.writeValue(new File(xmlFileName), dados);
 
-            List<Desenvolvedor> desenvolvedorList = desenvolvedorIterator.readAll();
+      System.out.println("Conversão concluída. Os dados foram salvos em " + xmlFileName);
+      System.out.println();
 
-            XmlMapper xmlMapper = new XmlMapper();
-
-            xmlMapper.writeValue(new File("desenvolvedor.xml"), desenvolvedorList);
-
-            System.out.println("Arquivo XML gerado com sucesso!");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    } catch(IOException e) {
+      e.printStackTrace();
     }
+  }
+
+
+  private static List<Desenvolvedor> lerDadosDoCSV(String csvFileName) throws IOException {
+
+    List<Desenvolvedor> dados = new ArrayList<>();
+
+    try (
+      BufferedReader reader = new BufferedReader(new FileReader(csvFileName))
+    ){
+      String linha;
+      boolean primeiraLinha = true;
+
+      while((linha = reader.readLine()) != null){
+        if(primeiraLinha){
+          primeiraLinha = false;
+          continue;
+        }
+
+        String[] partes = linha.split(",");
+
+        if(partes.length >= 6){
+          String nome = partes[0].trim();
+          String email = partes[1].trim();
+          int idade = Integer.parseInt(partes[2].trim());
+          String linguagem = partes[3].trim();
+          String descricao = partes[4].trim();
+          String disponibilidade = partes[5].trim();
+
+          Desenvolvedor desenvolvedor = new Desenvolvedor(nome, email, idade, linguagem, descricao, disponibilidade);
+          dados.add(desenvolvedor);
+        }
+      }
+
+    } catch(IOException e) {
+      e.printStackTrace();
+    }
+
+    return dados;
+  }
 }

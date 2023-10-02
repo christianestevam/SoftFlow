@@ -1,28 +1,31 @@
 package softflow;
 
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class ConversorCSVparaJSON {
 
-    public static void main(String[] args) {
+    public void converterCSVparaJSON(String csvFileName) {
+
+        String jsonFile = "desenvolvedores.json";
+
         try {
+            CsvSchema csvSchema = CsvSchema.emptySchema().withHeader();
             CsvMapper csvMapper = new CsvMapper();
-            File csvFile = new File("desenvolvedor.csv"); 
-            MappingIterator<Desenvolvedor> desenvolvedorIterator = csvMapper.readerWithTypedSchemaFor(Desenvolvedor.class).readValues(csvFile);
-            List<Desenvolvedor> desenvolvedorList = desenvolvedorIterator.readAll();
+            List<Object> readAll = csvMapper.readerFor(Map.class).with(csvSchema).readValues(new File(csvFileName)).readAll();
 
-            ObjectMapper jsonMapper = new ObjectMapper();
-            jsonMapper.writeValue(new File("desenvolvedor.json"), desenvolvedorList);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+            objectMapper.writeValue(new File(jsonFile), readAll);
 
-            System.out.println("Arquivo JSON gerado com sucesso!");
-
-        } catch (IOException e) {
+            System.out.println("Conversão concluída. Os dados foram salvos em " + jsonFile);
+            System.out.println();
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
