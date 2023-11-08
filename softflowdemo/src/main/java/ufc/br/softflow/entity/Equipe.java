@@ -1,3 +1,5 @@
+
+
 package ufc.br.softflow.entity;
 
 import jakarta.persistence.*;
@@ -5,32 +7,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "tarefa")
+@Table(name = "equipe")
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
-public class Tarefa {
+public class Equipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "descricao_tarefa")
-    private String descricaoTarefa;
-
-    @Column(name = "status_tarefa")
-    private String statusTarefa;
-
-    @Column(name = "data_inicio_tarefa")
-    private Date dataInicioTarefa;
-
-    @Column(name = "data_fim_tarefa")
-    private Date dataFimTarefa;
+    @Column(name = "nome_equipe")
+    private String nomeEquipe;
 
     // Relacionamento com Projeto (Muitas para uma)
     @ManyToOne
@@ -40,10 +32,9 @@ public class Tarefa {
     // Relacionamento com Desenvolvedor (Muitas para muitas)
     @ManyToMany
     @JoinTable(
-            name = "desenvolvedor_tarefa",
-            joinColumns = @JoinColumn(name = "id_tarefa"),
+            name = "desenvolvedor_equipe",
+            joinColumns = @JoinColumn(name = "id_equipe"),
             inverseJoinColumns = @JoinColumn(name = "id_desenvolvedor")
     )
     private List<Desenvolvedor> desenvolvedores;
 }
-
