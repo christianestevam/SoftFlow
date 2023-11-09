@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "projeto")
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Data
 public class Projeto {
 

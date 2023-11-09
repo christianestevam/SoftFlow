@@ -13,7 +13,6 @@ import java.util.List;
 @Table(name = "equipe")
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Data
 public class Equipe {
 

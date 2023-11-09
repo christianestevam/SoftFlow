@@ -11,7 +11,6 @@ import java.util.List;
 @Table(name = "desenvolvedor")
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Data
 public class Desenvolvedor {
 

@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "tarefa")
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Data
 public class Tarefa {
 
@@ -26,9 +25,11 @@ public class Tarefa {
     @Column(name = "status_tarefa")
     private String statusTarefa;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_inicio_tarefa")
     private Date dataInicioTarefa;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_fim_tarefa")
     private Date dataFimTarefa;
 
