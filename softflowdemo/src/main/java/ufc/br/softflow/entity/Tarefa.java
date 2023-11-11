@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+
 public class Tarefa {
 
     @Id
@@ -38,13 +39,8 @@ public class Tarefa {
     @JoinColumn(name = "id_projeto", referencedColumnName = "id")
     private Projeto projeto;
 
-    // Relacionamento com Desenvolvedor (Muitas para muitas)
-    @ManyToMany
-    @JoinTable(
-            name = "desenvolvedor_tarefa",
-            joinColumns = @JoinColumn(name = "id_tarefa"),
-            inverseJoinColumns = @JoinColumn(name = "id_desenvolvedor")
-    )
-    private List<Desenvolvedor> desenvolvedores;
+    // Relacionamento com Desenvolvedor (Um para Muitos)
+    @ManyToOne
+    @JoinColumn(name = "id_desenvolvedor")
+    private Desenvolvedor desenvolvedor;
 }
-

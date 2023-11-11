@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Entity
@@ -27,11 +26,12 @@ public class Desenvolvedor {
     @Column(name = "funcao")
     private String funcao;
 
-    // Relacionamento com Tarefas (Muitas para muitas)
-    @ManyToMany(mappedBy = "desenvolvedores")
+    // Relacionamento com Tarefa (Um para Muitos)
+    @OneToMany(mappedBy = "desenvolvedor")
     private List<Tarefa> tarefas;
 
-    // Relacionamento com Equipe (Muitas para muitas)
-    @ManyToMany(mappedBy = "desenvolvedores")
-    private List<Equipe> equipes;
+    // Relacionamento com Equipe (Muitos para um)
+    @ManyToOne
+    @JoinColumn(name = "id_equipe", referencedColumnName = "id")
+    private Equipe equipe;
 }

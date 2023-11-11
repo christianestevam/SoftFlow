@@ -1,12 +1,9 @@
-
-
 package ufc.br.softflow.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @Entity
@@ -28,12 +25,7 @@ public class Equipe {
     @JoinColumn(name = "id_projeto", referencedColumnName = "id")
     private Projeto projeto;
 
-    // Relacionamento com Desenvolvedor (Muitas para muitas)
-    @ManyToMany
-    @JoinTable(
-            name = "desenvolvedor_equipe",
-            joinColumns = @JoinColumn(name = "id_equipe"),
-            inverseJoinColumns = @JoinColumn(name = "id_desenvolvedor")
-    )
+    // Relacionamento com Desenvolvedor (Uma equipe pode ter varios desenvolvedores, mas um desenvolvedor pode estar em uma só equipe)
+    @OneToMany(mappedBy = "equipe")
     private List<Desenvolvedor> desenvolvedores;
 }
