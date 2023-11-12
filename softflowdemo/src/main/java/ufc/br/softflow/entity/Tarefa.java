@@ -35,4 +35,11 @@ public class Tarefa {
     @JoinColumn(name = "id_projeto")
     private Projeto projeto;
 
+    @Override
+    public String toString(){
+        String idstr = Long.toString(desenvolvedor.getIdDesenvolvedor());
+        String idstr2 = Long.toString(projeto.getIdProjeto());
+        return "Tarefa [id:" + idTarefa + ", descricao:" + descricaoTarefa + ", status:" + statusTarefa + ", dataInicio:" + dataInicioTarefa + ", dataFim:" + dataFimTarefa + ", desenvolvedor:" + idstr + ", projeto:" + idstr2;
+    }
+
 }
