@@ -16,6 +16,11 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@NamedQueries({
+    @NamedQuery(name = "desenvolvedorPorId", query = "select d from Desenvolvedor d where d.idDesenvolvedor = :id"),
+    @NamedQuery(name = "findByProjeto", query = "select d from Desenvolvedor d where d.projeto.idProjeto = :id"),
+
+})
 public class Desenvolvedor {
 
     @Id

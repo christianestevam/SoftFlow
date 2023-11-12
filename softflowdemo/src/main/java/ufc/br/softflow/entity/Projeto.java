@@ -13,6 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@NamedQueries({
+    @NamedQuery(name = "projetoPorId", query = "select p from Projeto p where p.idProjeto = :id"),
+    // pelo nome do projeto
+    @NamedQuery(name = "findByNome", query = "select p from Projeto p where p.nomeProjeto = :nome")
+})
 public class Projeto {
 
     @Id

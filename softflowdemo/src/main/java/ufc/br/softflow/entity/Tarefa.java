@@ -12,6 +12,11 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+    @NamedQuery(name = "tarefaPorId", query = "select t from Tarefa t where t.idTarefa = :id"),
+    @NamedQuery(name = "findByProjeto", query = "select t from Tarefa t where t.projeto.idProjeto = :id"),
+    @NamedQuery(name = "findByDesenvolvedor", query = "select t from Tarefa t where t.desenvolvedor.idDesenvolvedor = :id")
+})
 
 public class Tarefa {
 
