@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ufc.br.softflow.entity.Desenvolvedor;
 import ufc.br.softflow.entity.Tarefa;
 
+
 @Repository
 public interface DesenvolvedorDAO extends JpaRepository <Desenvolvedor, Integer> {
 

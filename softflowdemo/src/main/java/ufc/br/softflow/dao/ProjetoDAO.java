@@ -15,6 +15,7 @@ import ufc.br.softflow.entity.Projeto;
 import ufc.br.softflow.entity.Desenvolvedor;
 import ufc.br.softflow.entity.Tarefa;
 
+
 @Repository
 public interface ProjetoDAO extends JpaRepository <Projeto, Integer> {
 
