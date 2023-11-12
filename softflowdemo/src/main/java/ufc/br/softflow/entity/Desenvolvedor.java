@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
+
 @Entity
 @Table(name = "desenvolvedor")
 @NoArgsConstructor
@@ -15,23 +16,21 @@ public class Desenvolvedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id_desenvolvedor")
+    private Long idDesenvolvedor;
 
-    @Column(name = "nome")
     private String nome;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "funcao")
     private String funcao;
 
-    // Relacionamento com Tarefa (Um para Muitos)
+    // Um projeto pode ter vários desenvolvedores
+    @ManyToOne
+    @JoinColumn(name = "id_projeto")
+    private Projeto projeto;
+
+    // Um desenvolvedor pode ter várias tarefas
     @OneToMany(mappedBy = "desenvolvedor")
     private List<Tarefa> tarefas;
 
-    // Relacionamento com Equipe (Muitos para um)
-    @ManyToOne
-    @JoinColumn(name = "id_equipe", referencedColumnName = "id")
-    private Equipe equipe;
+
 }
