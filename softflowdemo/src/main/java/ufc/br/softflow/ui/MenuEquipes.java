@@ -16,7 +16,8 @@ public class MenuEquipes {
                 .append("4 - Remover Equipe por ID\n")
                 .append("5 - Exibir Equipe(s) por NOME\n")
                 .append("6 - Exibir Equipe pelo ID do projeto\n")
-                .append("7 - Menu anterior");
+                .append("7 - Exibir todas as Equipes\n")
+                .append("8 - Menu anterior");
         char opcao = '0';
         do {
             try {
@@ -40,7 +41,10 @@ public class MenuEquipes {
                     case '6':     // Exibir Equipe pelo ID do projeto
 
                         break;
-                    case '7':     // Menu anterior
+                    case '7':     // Exibir todas as Equipes
+
+                        break;
+                    case '8':
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -50,6 +54,6 @@ public class MenuEquipes {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while(opcao != '7');
+        } while(opcao != '8');
     }
 }
