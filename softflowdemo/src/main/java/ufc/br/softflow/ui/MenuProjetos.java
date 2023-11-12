@@ -6,9 +6,11 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 
 import ufc.br.softflow.dao.ProjetoDAO;
+import ufc.br.softflow.entity.Desenvolvedor;
 import ufc.br.softflow.entity.Projeto;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -40,6 +42,13 @@ public class MenuProjetos {
         JOptionPane.showMessageDialog(null, proj.isPresent() ? proj.toString() : "Nenhum Projeto encontrado");
     }
 
+    public void listarProjetos(List<Projeto> projetos){
+        StringBuilder listagem = new StringBuilder();
+        for(Projeto proj : projetos){
+            listagem.append(proj.toString()).append("\n");
+        }
+    }
+
     public void menu() {
         StringBuilder menu = new StringBuilder("Menu - Projetos\n")
                 .append("1 - Inserir Projeto\n")
@@ -55,6 +64,7 @@ public class MenuProjetos {
             try {
 
                 Optional<Projeto> proj;
+                Projeto proje;
                 Integer id;
 
                 opcao = JOptionPane.showInputDialog(menu).charAt(0);
@@ -64,17 +74,45 @@ public class MenuProjetos {
 
 
                         proj = Optional.of(new Projeto());
-                        Projeto project = proj.get();
-                        obterProjeto(project);
-                        projetoDAO.save(project);
+                        proje = proj.get();
+                        obterProjeto(proje);
+                        projetoDAO.save(proje);
 
 
 
                         break;
                     case '2':     // Exibir Projeto por ID
 
+
+
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
+                        proj = projetoDAO.findById(id);
+                        if(proj.isPresent()){
+                            proje = proj.get();
+                            listarProjeto(projetoDAO.findById(Math.toIntExact(proje.getIdProjeto())));
+                        }
+
+
+
                         break;
                     case '3':     // Atualizar Projeto por ID
+
+
+
+                        String idStr = JOptionPane.showInputDialog("Id");
+                        if (idStr != null && !idStr.isEmpty()) {
+                            id = Integer.parseInt(idStr);
+                            proj = projetoDAO.findById(id);
+                            if(proj.isPresent()){
+                                proje = proj.get();
+                                obterProjeto(proje);
+                                projetoDAO.save(proje);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o Projeto não foi encontrado.");
+                            }
+                        }
+
+
 
                         break;
                     case '4':     // Remover Projeto por ID
@@ -98,6 +136,12 @@ public class MenuProjetos {
 
                         break;
                     case '7':     // Exibir todos os Projetos
+
+
+
+                        listarProjetos(projetoDAO.findAll());
+
+
 
                         break;
                     case '8':     // Menu anterior
