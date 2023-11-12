@@ -40,4 +40,9 @@ public class Projeto {
     @OneToMany(mappedBy = "projeto", fetch=FetchType.EAGER)
     private List<Tarefa> tarefas;
 
+    @Override
+    public String toString(){
+        return "Projeto [id:" + idProjeto + ", nome:" + nomeProjeto + ", descricao:" + descricaoProjeto + ", dataInicio:" + dataInicioProjeto + ", dataFim:" + dataFimProjeto + ", status:" + statusProjeto + ", notas:" + notasProjeto;
+    }
+
 }
