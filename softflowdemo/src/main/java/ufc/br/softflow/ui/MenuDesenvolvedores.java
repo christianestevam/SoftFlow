@@ -7,7 +7,7 @@ import ufc.br.softflow.dao.DesenvolvedorDAO;
 import ufc.br.softflow.dao.ProjetoDAO;
 import ufc.br.softflow.entity.Desenvolvedor;
 
-import java.util.Optional;
+import java.util.*;
 import javax.swing.*;
 
 @Slf4j
@@ -25,7 +25,11 @@ public class MenuDesenvolvedores {
         String email = JOptionPane.showInputDialog("Email", dev.getNome());
         String funcao = JOptionPane.showInputDialog("Função", dev.getNome());
 
-        Integer idProjeto = Integer.parseInt(JOptionPane.showInputDialog("idProjeto", dev.getProjeto()));
+        String idProjetoStr = JOptionPane.showInputDialog("idProjeto", dev.getProjeto());
+        Integer idProjeto = null;
+        if (idProjetoStr != null && !idProjetoStr.isEmpty()){
+            idProjeto = Integer.parseInt(idProjetoStr);
+        }
 
         dev.setNome(nome);
         dev.setEmail(email);
@@ -34,12 +38,18 @@ public class MenuDesenvolvedores {
         if (idProjeto != null){
             dev.setProjeto(projetoDAO.getReferenceById(idProjeto));
         }
-
-
     }
 
     public void listarDesenvolvedor(Optional<Desenvolvedor> dev){
         JOptionPane.showMessageDialog(null, dev.isPresent() ? dev.toString() : "Nenhum Desenvolvedor encontrado");
+    }
+
+    public void listarDesenvolvedores(List<Desenvolvedor> desenvolvedores){
+        StringBuilder listagem = new StringBuilder();
+        for(Desenvolvedor dev : desenvolvedores){
+            listagem.append(dev.toString()).append("\n");
+        }
+        JOptionPane.showMessageDialog(null, listagem == null ? "Nenhum Desenvolvedor encontrado" : listagem);
     }
 
     public void menu() {
@@ -75,17 +85,17 @@ public class MenuDesenvolvedores {
 
 
 
-//                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
-//                        dev = baseDevs.findById(id);
-//                        if(dev.isPresent()){
-//                            Desenvolvedor desenvolvedor = dev.get();
-//                            listarDesenvolvedor(baseDevs.findById(Math.toIntExact(desenvolvedor.getIdDesenvolvedor())));
-//                        }
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
+                        dev = baseDevs.findById(id);
+                        if(dev.isPresent()){
+                            Desenvolvedor desenvolvedor = dev.get();
+                            listarDesenvolvedor(baseDevs.findById(Math.toIntExact(desenvolvedor.getIdDesenvolvedor())));
+                        }
 
 
 
                         break;
-                    case '3':     // Atualizar Desenvolvedor por ID
+                    case '3':     //TODO Atualizar Desenvolvedor por ID
 
 
 
@@ -118,14 +128,13 @@ public class MenuDesenvolvedores {
                         id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
                         dev = baseDevs.findById(id);
                         if(dev.isPresent()){
-                            Desenvolvedor desenvolvedor = dev.get();
-                            baseDevs.deleteById(Math.toIntExact(desenvolvedor.getIdDesenvolvedor()));
+                            baseDevs.deleteById(id);
                         }
 
 
 
                         break;
-                    case '5':     // Exibir Desenvolvedor(es) por Nome
+                    case '5':     //TODO Exibir Desenvolvedor(es) por Nome
 
 
 //                        String nome = JOptionPane.showInputDialog("Nome");
@@ -142,6 +151,13 @@ public class MenuDesenvolvedores {
 
                         break;
                     case '6':     // Exibir todos os Desenvolvedores
+
+
+
+                        listarDesenvolvedores(baseDevs.findAll());
+
+
+
 
                         break;
                     case '7':     // Menu anterior

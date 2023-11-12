@@ -1,6 +1,5 @@
 package ufc.br.softflow.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,11 +33,11 @@ public class Projeto {
     private String notasProjeto;
 
     // Um projeto pode ter vários desenvolvedores
-    @OneToMany(mappedBy = "projeto")
+    @OneToMany(mappedBy = "projeto", fetch=FetchType.EAGER)
     private List<Desenvolvedor> desenvolvedores;
 
     // Um projeto pode ter várias tarefas
-    @OneToMany(mappedBy = "projeto")
+    @OneToMany(mappedBy = "projeto", fetch=FetchType.EAGER)
     private List<Tarefa> tarefas;
 
 }

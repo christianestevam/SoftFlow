@@ -23,13 +23,19 @@ public class Desenvolvedor {
     private String funcao;
 
     // Um projeto pode ter vários desenvolvedores
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_projeto")
     private Projeto projeto;
 
     // Um desenvolvedor pode ter várias tarefas
-    @OneToMany(mappedBy = "desenvolvedor")
+    @OneToMany(mappedBy = "desenvolvedor", fetch=FetchType.EAGER)
     private List<Tarefa> tarefas;
+
+    @Override
+    public String toString(){
+        String idstr = Long.toString(projeto.getIdProjeto());
+        return "Desenvolvedor [id:" + idDesenvolvedor + ", nome:" + nome + ", email:" + email + ", funcao:" + funcao + ", projeto:" + idstr;
+    }
 
 
 }

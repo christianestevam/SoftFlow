@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "tarefa")
 @Data
@@ -27,12 +26,12 @@ public class Tarefa {
     private LocalDate dataFimTarefa;
 
     // Um desenvolvedor pode ter várias tarefas
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_desenvolvedor")
     private Desenvolvedor desenvolvedor;
 
     // Um projeto pode ter várias tarefas
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_projeto")
     private Projeto projeto;
 
