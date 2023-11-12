@@ -47,6 +47,7 @@ public class MenuProjetos {
         for(Projeto proj : projetos){
             listagem.append(proj.toString()).append("\n");
         }
+        JOptionPane.showMessageDialog(null, listagem == null ? "Nenhum Projeto encontrado" : listagem);
     }
 
     public void menu() {
@@ -130,6 +131,19 @@ public class MenuProjetos {
 
                         break;
                     case '5':     // Exibir Projeto(s) por NOME
+
+
+
+                        String nome = JOptionPane.showInputDialog("Nome");
+                        proj = projetoDAO.findByNome(nome);
+
+                        if(!proj.isEmpty()){
+                            listarProjeto(proj);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Não foi possivel encontrar um Projeto com esse nome");
+                        }
+
+
 
                         break;
                     case '6':     // Exibir Projeto(s) pela DATA_INICIO e DATA_FIM

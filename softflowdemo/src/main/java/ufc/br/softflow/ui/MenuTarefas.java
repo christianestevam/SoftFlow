@@ -11,7 +11,7 @@ import ufc.br.softflow.dao.TarefaDAO;
 import ufc.br.softflow.entity.Tarefa;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -27,10 +27,12 @@ public class MenuTarefas {
     private ProjetoDAO projetoDAO;
 
     public void obterTarefa(Tarefa tare){
+
         String descricao = JOptionPane.showInputDialog("Descrição", tare.getDescricaoTarefa());
         String status = JOptionPane.showInputDialog("Status", tare.getStatusTarefa());
-        Integer idDesenvolvedor = Integer.parseInt(JOptionPane.showInputDialog("IdDesenvolvedor", tare.getDesenvolvedor()));
-        Integer idProjeto = Integer.parseInt(JOptionPane.showInputDialog("IdProjeto", tare.getProjeto()));
+
+        Integer idDesenvolvedor = Integer.parseInt(JOptionPane.showInputDialog("IdDesenvolvedor", tare.getDesenvolvedor().getIdDesenvolvedor()));
+        Integer idProjeto = Integer.parseInt(JOptionPane.showInputDialog("IdProjeto", tare.getProjeto().getIdProjeto()));
 
         tare.setDataInicioTarefa(LocalDate.now());
         tare.setDataFimTarefa(LocalDate.now());
@@ -45,6 +47,14 @@ public class MenuTarefas {
 
     public void listarTarefa(Optional<Tarefa> tare){
         JOptionPane.showMessageDialog(null, tare.isPresent() ? tare.toString() : "Nenhuma Tarefa encontrado");
+    }
+
+    public void listarTarefas(List<Tarefa> tarefas){
+        StringBuilder listagem = new StringBuilder();
+        for(Tarefa tare : tarefas){
+            listagem.append(tare.toString()).append("\n");
+        }
+        JOptionPane.showMessageDialog(null, listagem == null ? "Nenhuma Tarefa encontrado" : listagem);
     }
 
     public void menu() {
@@ -78,30 +88,74 @@ public class MenuTarefas {
                         break;
                     case '2':     // Exibir Tarefa por ID
 
+
+
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para exibir"));
+                        tare = tarefaDAO.findById(id);
+                        if (tare.isPresent()){
+                            listarTarefa(tarefaDAO.findById(id));
+                        }
+
+
+
                         break;
                     case '3':     // Atualizar Tarefa por ID
+
+
+
+                        String idStr = JOptionPane.showInputDialog("Id para atualizar");
+                        if (idStr != null && !idStr.isEmpty()) {
+                            id = Integer.parseInt(idStr);
+                            tare = tarefaDAO.findById(id);
+                            if (tare.isPresent()) {
+                                taref = tare.get();
+                                obterTarefa(taref);
+                                tarefaDAO.save(taref);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois a Tarefa não foi encontrada.");
+                            }
+                        }
+
+
 
                         break;
                     case '4':     // Remover Tarefa por ID
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para remover"));
                         tare = tarefaDAO.findById(id);
                         if(tare.isPresent()){
-                            taref = tare.get();
-                            tarefaDAO.deleteById(Math.toIntExact(taref.getIdTarefa()));
+                            tarefaDAO.deleteById(id);
                         }
 
                         break;
-                    case '5':     // Exibir Tarefa pelo ID do projeto
+                    case '5':     // Exibir Tarefa(s) pelo ID do projeto
+
+
+
+                        listarTarefas(tarefaDAO.findByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id projeto"))));
+
+
 
                         break;
                     case '6':     // Exibir Tarefa(s) pelo ID do desenvolvedor
+
+
+
+                        listarTarefas(tarefaDAO.findByIdDesenvolvedor(Long.parseLong(JOptionPane.showInputDialog("Id desenvolvedor"))));
+
+
 
                         break;
                     case '7':     // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
 
                         break;
                     case '8':     // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa
+
+
+
+                        listarTarefas(tarefaDAO.findByIdProjetoStatus(Long.parseLong(JOptionPane.showInputDialog("Id do projeto")), JOptionPane.showInputDialog("Estado da tarefa")));
+
+
 
                         break;
                     case '9':    // Menu anterior

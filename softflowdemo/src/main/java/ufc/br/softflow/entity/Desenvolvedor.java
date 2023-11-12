@@ -18,8 +18,6 @@ import java.util.Optional;
 @Data
 public class Desenvolvedor {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_desenvolvedor")
@@ -42,7 +40,7 @@ public class Desenvolvedor {
     public String toString(){
 
         String idstr;
-        if(projeto.getIdProjeto() != null){
+        if(projeto != null){
             idstr = Long.toString(projeto.getIdProjeto());
         } else {
             idstr = "null";
