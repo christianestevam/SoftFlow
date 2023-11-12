@@ -43,6 +43,12 @@ public interface ProjetoDAO extends JpaRepository <Projeto, Integer> {
     @Query("SELECT COUNT(p.tarefas) FROM Projeto p WHERE p.idProjeto = :idProjeto")
     Integer findByQuantidadeTarefas(@Param("idProjeto") Long idProjeto);
 
+    // Native Query
+    @Query(value = "SELECT * FROM projeto WHERE id_projeto = :idProjeto", nativeQuery = true)
+    List<Projeto> findByIdProjeto(@Param("idProjeto") Long idProjeto);
 
+    // Native Query
+    @Query(value = "SELECT * FROM projeto WHERE nome_projeto = :nomeProjeto", nativeQuery = true)
+    List<Projeto> findByNomeProjeto(@Param("nomeProjeto") String nomeProjeto);
 
 }
