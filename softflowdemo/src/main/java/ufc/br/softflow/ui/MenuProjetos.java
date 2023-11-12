@@ -17,7 +17,8 @@ public class MenuProjetos {
                 .append("5 - Exibir Projeto(s) por NOME\n")
                 .append("6 - Exibir Projeto pelo ID da equipe\n")
                 .append("7 - Exibir Projeto(s) pela DATA_INICIO e DATA_FIM\n")
-                .append("8 - Menu anterior");
+                .append("8 - Exibir todos os Projetos")
+                .append("9 - Menu anterior");
         char opcao = '0';
         do {
             try {
@@ -44,8 +45,10 @@ public class MenuProjetos {
                     case '7':     // Exibir Projeto(s) pela DATA_INICIO e DATA_FIM
 
                         break;
-                    case '8':     // Menu anterior
+                    case '8':     // Exibir todos os Projetos
 
+                        break;
+                    case '9':     // Menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -55,6 +58,6 @@ public class MenuProjetos {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while(opcao != '8');
+        } while(opcao != '9');
     }
 }

@@ -14,10 +14,10 @@ public class MenuTarefas {
                 .append("2 - Exibir Tarefa por ID\n")
                 .append("3 - Atualizar Tarefa por ID\n")
                 .append("4 - Remover Tarefa por ID\n")
-                .append("5 - Exibir Tarefa(s) pela DESCRIÇÃO\n")
-                .append("6 - Exibir Tarefa(s) pelo ID do projeto\n")
-                .append("7 - Exibir Tarefa(s) pelo ID do desenvolvedor\n")
-                .append("8 - Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM\n")
+                .append("5 - Exibir Tarefa(s) pelo ID do projeto\n")
+                .append("6 - Exibir Tarefa pelo ID do desenvolvedor\n")
+                .append("7 - Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM\n")
+                .append("8 - Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa\n")
                 .append("9 - Menu anterior");
         char opcao = '0';
         do {
@@ -36,19 +36,19 @@ public class MenuTarefas {
                     case '4':     // Remover Tarefa por ID
 
                         break;
-                    case '5':     // Exibir Tarefa(s) pela DESCRIÇÃO
+                    case '5':     // Exibir Tarefa pelo ID do projeto
 
                         break;
-                    case '6':     // Exibir Tarefa pelo ID do projeto
+                    case '6':     // Exibir Tarefa(s) pelo ID do desenvolvedor
 
                         break;
-                    case '7':     // Exibir Tarefa(s) pelo ID do desenvolvedor
+                    case '7':     // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
 
                         break;
-                    case '8':     // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
+                    case '8':     // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa
 
                         break;
-                    case '9':     // Menu anterior
+                    case '9':    // Menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
