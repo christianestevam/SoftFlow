@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.swing.*;
 
+import ufc.br.softflow.dao.DesenvolvedorDAO;
+import ufc.br.softflow.dao.ProjetoDAO;
 import ufc.br.softflow.dao.TarefaDAO;
 import ufc.br.softflow.entity.Tarefa;
 
 import java.time.LocalDate;
 import java.util.Optional;
-
 
 @Slf4j
 @Component
@@ -19,15 +20,27 @@ public class MenuTarefas {
     @Autowired
     private TarefaDAO tarefaDAO;
 
+    @Autowired
+    private DesenvolvedorDAO desenvolvedorDAO;
+
+    @Autowired
+    private ProjetoDAO projetoDAO;
+
     public void obterTarefa(Tarefa tare){
         String descricao = JOptionPane.showInputDialog("Descrição", tare.getDescricaoTarefa());
         String status = JOptionPane.showInputDialog("Status", tare.getStatusTarefa());
+        Integer idDesenvolvedor = Integer.parseInt(JOptionPane.showInputDialog("IdDesenvolvedor", tare.getDesenvolvedor()));
+        Integer idProjeto = Integer.parseInt(JOptionPane.showInputDialog("IdProjeto", tare.getProjeto()));
 
         tare.setDataInicioTarefa(LocalDate.now());
         tare.setDataFimTarefa(LocalDate.now());
 
         tare.setDescricaoTarefa(descricao);
         tare.setStatusTarefa(status);
+
+        tare.setDesenvolvedor(desenvolvedorDAO.getReferenceById(idDesenvolvedor));
+        tare.setProjeto(projetoDAO.getReferenceById(idProjeto));
+
     }
 
     public void listarTarefa(Optional<Tarefa> tare){
@@ -50,6 +63,7 @@ public class MenuTarefas {
             try {
 
                 Optional<Tarefa> tare;
+                Tarefa taref;
                 Integer id;
 
                 opcao = JOptionPane.showInputDialog(menu).charAt(0);
@@ -57,7 +71,7 @@ public class MenuTarefas {
                     case '1':     // Inserir Tarefa
 
                         tare = Optional.of(new Tarefa());
-                        Tarefa taref = tare.get();
+                        taref = tare.get();
                         obterTarefa(taref);
                         tarefaDAO.save(taref);
 
@@ -70,7 +84,12 @@ public class MenuTarefas {
                         break;
                     case '4':     // Remover Tarefa por ID
 
-
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
+                        tare = tarefaDAO.findById(id);
+                        if(tare.isPresent()){
+                            taref = tare.get();
+                            tarefaDAO.deleteById(Math.toIntExact(taref.getIdTarefa()));
+                        }
 
                         break;
                     case '5':     // Exibir Tarefa pelo ID do projeto

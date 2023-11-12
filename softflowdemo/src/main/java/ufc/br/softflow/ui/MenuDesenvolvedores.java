@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ufc.br.softflow.dao.DesenvolvedorDAO;
+import ufc.br.softflow.dao.ProjetoDAO;
 import ufc.br.softflow.entity.Desenvolvedor;
 
 import java.util.Optional;
 import javax.swing.*;
-
 
 @Slf4j
 @Component
@@ -17,13 +17,25 @@ public class MenuDesenvolvedores {
     @Autowired
     private DesenvolvedorDAO baseDevs;
 
+    @Autowired
+    private ProjetoDAO projetoDAO;
+
     public void obterDesenvolvedor(Desenvolvedor dev){
         String nome = JOptionPane.showInputDialog("Nome", dev.getNome());
         String email = JOptionPane.showInputDialog("Email", dev.getNome());
         String funcao = JOptionPane.showInputDialog("Função", dev.getNome());
+
+        Integer idProjeto = Integer.parseInt(JOptionPane.showInputDialog("idProjeto", dev.getProjeto()));
+
         dev.setNome(nome);
         dev.setEmail(email);
         dev.setFuncao(funcao);
+
+        if (idProjeto != null){
+            dev.setProjeto(projetoDAO.getReferenceById(idProjeto));
+        }
+
+
     }
 
     public void listarDesenvolvedor(Optional<Desenvolvedor> dev){
@@ -44,6 +56,7 @@ public class MenuDesenvolvedores {
             try {
 
                 Optional<Desenvolvedor> dev;
+                Desenvolvedor deve;
                 Integer id;
 
                 opcao = JOptionPane.showInputDialog(menu).charAt(0);
@@ -52,7 +65,7 @@ public class MenuDesenvolvedores {
 
 
                         dev = Optional.of(new Desenvolvedor());
-                        Desenvolvedor deve = dev.get();
+                        deve = dev.get();
                         obterDesenvolvedor(deve);
                         baseDevs.save(deve);
 
@@ -73,6 +86,29 @@ public class MenuDesenvolvedores {
 
                         break;
                     case '3':     // Atualizar Desenvolvedor por ID
+
+
+
+//                        cpf = JOptionPane.showInputDialog("Digite o CPF do cliente a ser alterado");
+//                        cl = baseClientes.findFirstByCpf(cpf);
+//                        if (cl != null) {
+//                            obterCliente(cl);
+//                            baseClientes.save(cl);
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o cliente não foi encontrado.");
+//                        }
+
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
+                        dev = baseDevs.findById(id);
+                        if (dev.isPresent()) {
+                            deve = dev.get();
+                            obterDesenvolvedor(deve);
+                            baseDevs.save(deve);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o Desenvolvedor não foi encontrado.");
+                        }
+
+
 
                         break;
                     case '4':     // Remover Desenvolvedor por ID

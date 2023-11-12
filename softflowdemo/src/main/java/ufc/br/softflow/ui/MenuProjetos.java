@@ -11,7 +11,6 @@ import ufc.br.softflow.entity.Projeto;
 import java.time.LocalDate;
 import java.util.Optional;
 
-
 @Slf4j
 @Component
 public class MenuProjetos {
