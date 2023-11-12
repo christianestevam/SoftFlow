@@ -4,7 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ufc.br.softflow.dao.ProjetoDAO;
+
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "desenvolvedor")
@@ -12,6 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class Desenvolvedor {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +40,14 @@ public class Desenvolvedor {
 
     @Override
     public String toString(){
-        String idstr = Long.toString(projeto.getIdProjeto());
+
+        String idstr;
+        if(projeto.getIdProjeto() != null){
+            idstr = Long.toString(projeto.getIdProjeto());
+        } else {
+            idstr = "null";
+        }
+
         return "Desenvolvedor [id:" + idDesenvolvedor + ", nome:" + nome + ", email:" + email + ", funcao:" + funcao + ", projeto:" + idstr;
     }
 

@@ -16,7 +16,7 @@ import javax.swing.*;
 public class MenuDesenvolvedores {
 
     @Autowired
-    private DesenvolvedorDAO baseDevs;
+    private DesenvolvedorDAO desenvolvedorDAO;
 
     @Autowired
     private ProjetoDAO projetoDAO;
@@ -40,6 +40,8 @@ public class MenuDesenvolvedores {
 
         if (idProjeto != null){
             dev.setProjeto(projetoDAO.getReferenceById(idProjeto));
+        } else {
+            dev.setProjeto(null);
         }
     }
 
@@ -80,7 +82,7 @@ public class MenuDesenvolvedores {
                         dev = Optional.of(new Desenvolvedor());
                         deve = dev.get();
                         obterDesenvolvedor(deve);
-                        baseDevs.save(deve);
+                        desenvolvedorDAO.save(deve);
 
 
                         break;
@@ -89,10 +91,10 @@ public class MenuDesenvolvedores {
 
 
                         id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
-                        dev = baseDevs.findById(id);
+                        dev = desenvolvedorDAO.findById(id);
                         if(dev.isPresent()){
-                            Desenvolvedor desenvolvedor = dev.get();
-                            listarDesenvolvedor(baseDevs.findById(Math.toIntExact(desenvolvedor.getIdDesenvolvedor())));
+                            deve = dev.get();
+                            listarDesenvolvedor(desenvolvedorDAO.findById(Math.toIntExact(deve.getIdDesenvolvedor())));
                         }
 
 
@@ -105,11 +107,11 @@ public class MenuDesenvolvedores {
                         String idStr = JOptionPane.showInputDialog("Id");
                         if (idStr != null && !idStr.isEmpty()) {
                             id = Integer.parseInt(idStr);
-                            dev = baseDevs.findById(id);
+                            dev = desenvolvedorDAO.findById(id);
                             if (dev.isPresent()) {
                                 deve = dev.get();
                                 obterDesenvolvedor(deve);
-                                baseDevs.save(deve);
+                                desenvolvedorDAO.save(deve);
                             } else {
                                 JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o Desenvolvedor não foi encontrado.");
                             }
@@ -123,9 +125,9 @@ public class MenuDesenvolvedores {
 
 
                         id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
-                        dev = baseDevs.findById(id);
+                        dev = desenvolvedorDAO.findById(id);
                         if(dev.isPresent()){
-                            baseDevs.deleteById(id);
+                            desenvolvedorDAO.deleteById(id);
                         }
 
 
@@ -151,7 +153,7 @@ public class MenuDesenvolvedores {
 
 
 
-                        listarDesenvolvedores(baseDevs.findAll());
+                        listarDesenvolvedores(desenvolvedorDAO.findAll());
 
 
 

@@ -19,6 +19,9 @@ import ufc.br.softflow.entity.Tarefa;
 @Repository
 public interface ProjetoDAO extends JpaRepository <Projeto, Integer> {
 
+    @Query("SELECT p FROM Projeto p WHERE p.idProjeto = :idProjeto")
+    Optional<Projeto> findById(@Param("idProjeto") String idProjeto);
+
     // Exibir Projeto(s) por NOME
     @Query("SELECT p FROM Projeto p WHERE p.nomeProjeto = :nomeProjeto")
     Optional<Projeto> findByNome(@Param("nomeProjeto") String nomeProjeto);
