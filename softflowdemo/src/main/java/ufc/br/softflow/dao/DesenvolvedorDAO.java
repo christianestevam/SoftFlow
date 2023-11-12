@@ -20,42 +20,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
+
 @Entity
 @Table(name = "desenvolvedor")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@NamedQueries({
-    @NamedQuery(name = "desenvolvedorPorId", query = "select d from Desenvolvedor d where d.id = :id"),
-    // buscar desenvolvedor por nome
-    @NamedQuery(name = "findByNomeDesenvolvedor", query = "select d from Desenvolvedor d where d.nome = :nome"),
-    // buscar desenvolvedor por email
-    @NamedQuery(name = "findByEmailDesenvolvedor", query = "select d from Desenvolvedor d where d.email = :email"),
-})
-
 public class Desenvolvedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id_desenvolvedor")
+    private Long idDesenvolvedor;
 
-    @Column(name = "nome")
     private String nome;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "funcao")
     private String funcao;
 
-    // Relacionamento com Tarefa (Um para Muitos)
+    // Um projeto pode ter vários desenvolvedores
+    @ManyToOne
+    @JoinColumn(name = "id_projeto")
+    private Projeto projeto;
+
+    // Um desenvolvedor pode ter várias tarefas
     @OneToMany(mappedBy = "desenvolvedor")
     private List<Tarefa> tarefas;
 
-    // Relacionamento com Equipe (Muitos para um)
-    @ManyToOne
-    @JoinColumn(name = "id_equipe", referencedColumnName = "id")
-    private Equipe equipe;
+
 }
 
 package ufc.br.softflow.entity;
@@ -64,45 +55,86 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "tarefa")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 
 public class Tarefa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id_tarefa")
+    private Long idTarefa;
 
-    @Column(name = "descricao_tarefa")
     private String descricaoTarefa;
-
-    @Column(name = "status_tarefa")
     private String statusTarefa;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "data_inicio_tarefa")
     private Date dataInicioTarefa;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "data_fim_tarefa")
     private Date dataFimTarefa;
 
-    // Relacionamento com Projeto (Muitas para uma)
-    @ManyToOne
-    @JoinColumn(name = "id_projeto", referencedColumnName = "id")
-    private Projeto projeto;
-
-    // Relacionamento com Desenvolvedor (Um para Muitos)
+    // Um desenvolvedor pode ter várias tarefas
     @ManyToOne
     @JoinColumn(name = "id_desenvolvedor")
     private Desenvolvedor desenvolvedor;
+
+    // Um projeto pode ter várias tarefas
+    @ManyToOne
+    @JoinColumn(name = "id_projeto")
+    private Projeto projeto;
+
 }
+
+package ufc.br.softflow.entity;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.sql.Date;
+import java.util.List;
+
+
+@Entity
+@Table(name = "projeto")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class Projeto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_projeto")
+    private Long idProjeto;
+
+    private String nomeProjeto;
+
+    private String descricaoProjeto;
+
+    private Date dataInicioProjeto;
+
+    private Date dataFimProjeto;
+
+    private String statusProjeto;
+
+    private String notasProjeto;
+
+    // Um projeto pode ter vários desenvolvedores
+    @OneToMany(mappedBy = "projeto")
+    private List<Desenvolvedor> desenvolvedores;
+
+    // Um projeto pode ter várias tarefas
+    @OneToMany(mappedBy = "projeto")
+    private List<Tarefa> tarefas;
+
+}
+
+
+
  */
 
 package ufc.br.softflow.dao;
@@ -120,6 +152,24 @@ import ufc.br.softflow.entity.Tarefa;
 
 @Repository
 public interface DesenvolvedorDAO extends JpaRepository <Desenvolvedor, Integer> {
+
+    @Query("SELECT d FROM Desenvolvedor d WHERE d.idDesenvolvedor = :idDesenvolvedor")
+    Optional<Desenvolvedor> findById(@Param("idDesenvolvedor") Long idDesenvolvedor);
+
+    @Query("SELECT d FROM Desenvolvedor d WHERE d.nome = :nome")
+    Optional<Desenvolvedor> findByNome(@Param("nome") String nome);
+
+    @Query("SELECT d FROM Desenvolvedor d WHERE d.email = :email")
+    Optional<Desenvolvedor> findByEmail(@Param("email") String email);
+
+    @Query("SELECT d FROM Desenvolvedor d WHERE d.projeto.idProjeto = :idProjeto")
+    List<Desenvolvedor> findByProjeto(@Param("idProjeto") Long idProjeto);
+
+    @Query("SELECT d FROM Desenvolvedor d")
+    List<Desenvolvedor> findAll();
+
+    @Query("SELECT d.tarefas FROM Desenvolvedor d WHERE d.idDesenvolvedor = :idDesenvolvedor")
+    List<Tarefa> findTarefas(@Param("idDesenvolvedor") Long idDesenvolvedor);
 
 
 
