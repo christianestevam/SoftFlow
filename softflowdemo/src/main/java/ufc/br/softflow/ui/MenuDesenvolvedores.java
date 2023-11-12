@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ufc.br.softflow.dao.DesenvolvedorDAO;
 import ufc.br.softflow.dao.ProjetoDAO;
 import ufc.br.softflow.entity.Desenvolvedor;
+import ufc.br.softflow.entity.Projeto;
 
 import java.util.*;
 import javax.swing.*;
@@ -22,10 +23,12 @@ public class MenuDesenvolvedores {
 
     public void obterDesenvolvedor(Desenvolvedor dev){
         String nome = JOptionPane.showInputDialog("Nome", dev.getNome());
-        String email = JOptionPane.showInputDialog("Email", dev.getNome());
-        String funcao = JOptionPane.showInputDialog("Função", dev.getNome());
+        String email = JOptionPane.showInputDialog("Email", dev.getEmail());
+        String funcao = JOptionPane.showInputDialog("Função", dev.getFuncao());
 
-        String idProjetoStr = JOptionPane.showInputDialog("idProjeto", dev.getProjeto());
+        Projeto proj = dev.getProjeto();
+
+        String idProjetoStr = JOptionPane.showInputDialog("idProjeto", null);
         Integer idProjeto = null;
         if (idProjetoStr != null && !idProjetoStr.isEmpty()){
             idProjeto = Integer.parseInt(idProjetoStr);
@@ -95,27 +98,21 @@ public class MenuDesenvolvedores {
 
 
                         break;
-                    case '3':     //TODO Atualizar Desenvolvedor por ID
+                    case '3':     // Atualizar Desenvolvedor por ID
 
 
 
-//                        cpf = JOptionPane.showInputDialog("Digite o CPF do cliente a ser alterado");
-//                        cl = baseClientes.findFirstByCpf(cpf);
-//                        if (cl != null) {
-//                            obterCliente(cl);
-//                            baseClientes.save(cl);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o cliente não foi encontrado.");
-//                        }
-
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
-                        dev = baseDevs.findById(id);
-                        if (dev.isPresent()) {
-                            deve = dev.get();
-                            obterDesenvolvedor(deve);
-                            baseDevs.save(deve);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o Desenvolvedor não foi encontrado.");
+                        String idStr = JOptionPane.showInputDialog("Id");
+                        if (idStr != null && !idStr.isEmpty()) {
+                            id = Integer.parseInt(idStr);
+                            dev = baseDevs.findById(id);
+                            if (dev.isPresent()) {
+                                deve = dev.get();
+                                obterDesenvolvedor(deve);
+                                baseDevs.save(deve);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o Desenvolvedor não foi encontrado.");
+                            }
                         }
 
 
