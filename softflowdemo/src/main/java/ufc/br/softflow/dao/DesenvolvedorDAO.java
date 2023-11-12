@@ -39,7 +39,7 @@ public interface DesenvolvedorDAO extends JpaRepository <Desenvolvedor, Integer>
 
     // Native Query
     @Query(value = "SELECT * FROM desenvolvedor WHERE id_desenvolvedor = :idDesenvolvedor", nativeQuery = true)
-    List<Desenvolvedor> findByIdDesenvolvedor(@Param("idDesenvolvedor") Long idDesenvolvedor);
+    Optional<Desenvolvedor> findByIdDesenvolvedor(@Param("idDesenvolvedor") Long idDesenvolvedor);
 
 
 

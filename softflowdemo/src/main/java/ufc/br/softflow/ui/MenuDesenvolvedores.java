@@ -58,9 +58,10 @@ public class MenuDesenvolvedores {
                 .append("3 - Atualizar Desenvolvedor por ID\n")
                 .append("4 - Remover Desenvolvedor por ID\n")
                 .append("5 - Exibir Desenvolvedor por NOME\n")
-                .append("6 - Exibir todos os Desenvolvedores\n")
-                .append("7 - Menu anterior");
-        char opcao = '0';
+                .append("6 - Exibir Desenvolvedor(es) por Projeto\n")
+                .append("7 - Exibir todos os Desenvolvedores\n")
+                .append("8 - Menu anterior");
+        int opcao = 0;
         do {
             try {
 
@@ -68,9 +69,9 @@ public class MenuDesenvolvedores {
                 Desenvolvedor deve;
                 Integer id;
 
-                opcao = JOptionPane.showInputDialog(menu).charAt(0);
+                opcao = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcao) {
-                    case '1':     // Inserir Desenvolvedor
+                    case 1:     // Inserir Desenvolvedor
 
 
 
@@ -82,24 +83,25 @@ public class MenuDesenvolvedores {
 
 
                         break;
-                    case '2':     // Exibir Desenvolvedor por ID
+                    case 2:     // Exibir Desenvolvedor por id
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
-                        dev = desenvolvedorDAO.findById(id);
+                        dev = desenvolvedorDAO.findByIdDesenvolvedor(Long.parseLong(JOptionPane.showInputDialog("Id para exibir")));
                         if(dev.isPresent()){
-                            listarDesenvolvedor(desenvolvedorDAO.findById(id));
+                            listarDesenvolvedor(desenvolvedorDAO.findByIdDesenvolvedor(dev.get().getIdDesenvolvedor()));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
                         }
 
 
 
                         break;
-                    case '3':     // Atualizar Desenvolvedor por ID
+                    case 3:     // Atualizar Desenvolvedor por id
 
 
 
-                        String idStr = JOptionPane.showInputDialog("Id");
+                        String idStr = JOptionPane.showInputDialog("Id para atualizar");
                         if (idStr != null && !idStr.isEmpty()) {
                             id = Integer.parseInt(idStr);
                             dev = desenvolvedorDAO.findById(id);
@@ -108,43 +110,54 @@ public class MenuDesenvolvedores {
                                 obterDesenvolvedor(deve);
                                 desenvolvedorDAO.save(deve);
                             } else {
-                                JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois o Desenvolvedor não foi encontrado.");
+                                JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
                             }
                         }
 
 
 
                         break;
-                    case '4':     // Remover Desenvolvedor por ID
+                    case 4:     // Remover Desenvolvedor por id
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para remover"));
                         dev = desenvolvedorDAO.findById(id);
                         if(dev.isPresent()){
                             desenvolvedorDAO.deleteById(id);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
                         }
 
 
 
                         break;
-                    case '5':     // Exibir Desenvolvedor por Nome
+                    case 5:     // Exibir Desenvolvedor por Nome
 
 
 
-                        String nome = JOptionPane.showInputDialog("Nome");
+                        String nome = JOptionPane.showInputDialog("Nome desenvolvedor");
                         dev = desenvolvedorDAO.findByNome(nome);
 
                         if(!dev.isEmpty()){
                             listarDesenvolvedor(dev);
                         } else {
-                            JOptionPane.showMessageDialog(null,"Não foi possivel encontrar um Desenvolvedor com esse nome");
+                            JOptionPane.showMessageDialog(null,"Não foi possivel encontrar um Desenvolvedor com esse Nome.");
                         }
 
 
 
                         break;
-                    case '6':     // Exibir todos os Desenvolvedores
+                    case 6:     // Exibir Desenvolvedor por idProjeto
+
+
+
+                        listarDesenvolvedores(desenvolvedorDAO.findByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id projeto"))));
+
+
+
+                        break;
+                    case 7:     // Exibir todos os Desenvolvedores
 
 
 
@@ -153,7 +166,7 @@ public class MenuDesenvolvedores {
 
 
                         break;
-                    case '7':     // Menu anterior
+                    case 8:     // Menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -163,6 +176,6 @@ public class MenuDesenvolvedores {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while(opcao != '7');
+        } while(opcao != 8);
     }
 }

@@ -48,10 +48,10 @@ public interface ProjetoDAO extends JpaRepository <Projeto, Integer> {
 
     // Native Query
     @Query(value = "SELECT * FROM projeto WHERE id_projeto = :idProjeto", nativeQuery = true)
-    List<Projeto> findByIdProjeto(@Param("idProjeto") Long idProjeto);
+    Optional<Projeto> findByIdProjeto(@Param("idProjeto") Long idProjeto);
 
     // Native Query
     @Query(value = "SELECT * FROM projeto WHERE nome_projeto = :nomeProjeto", nativeQuery = true)
-    List<Projeto> findByNomeProjeto(@Param("nomeProjeto") String nomeProjeto);
+    Optional<Projeto> findByNomeProjeto(@Param("nomeProjeto") String nomeProjeto);
 
 }

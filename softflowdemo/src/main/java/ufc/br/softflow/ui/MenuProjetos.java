@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 
 import ufc.br.softflow.dao.ProjetoDAO;
-import ufc.br.softflow.entity.Desenvolvedor;
 import ufc.br.softflow.entity.Projeto;
 
 import java.time.LocalDate;
@@ -60,7 +59,7 @@ public class MenuProjetos {
                 .append("6 - Exibir Projeto(s) pela DATA_INICIO e DATA_FIM\n")
                 .append("7 - Exibir todos os Projetos\n")
                 .append("8 - Menu anterior");
-        char opcao = '0';
+        int opcao = 0;
         do {
             try {
 
@@ -68,9 +67,9 @@ public class MenuProjetos {
                 Projeto proje;
                 Integer id;
 
-                opcao = JOptionPane.showInputDialog(menu).charAt(0);
+                opcao = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcao) {
-                    case '1':     // Inserir Projeto
+                    case 1:     // Inserir Projeto
 
 
 
@@ -82,25 +81,25 @@ public class MenuProjetos {
 
 
                         break;
-                    case '2':     // Exibir Projeto por ID
+                    case 2:     // Exibir Projeto por ID
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
-                        proj = projetoDAO.findById(id);
+                        proj = projetoDAO.findByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id para exibir")));
                         if(proj.isPresent()){
-                            proje = proj.get();
-                            listarProjeto(projetoDAO.findById(Math.toIntExact(proje.getIdProjeto())));
+                            listarProjeto(projetoDAO.findByIdProjeto(proj.get().getIdProjeto()));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Projeto com esse Id");
                         }
 
 
 
                         break;
-                    case '3':     // Atualizar Projeto por ID
+                    case 3:     // Atualizar Projeto por ID
 
 
 
-                        String idStr = JOptionPane.showInputDialog("Id");
+                        String idStr = JOptionPane.showInputDialog("Id para atualizar");
                         if (idStr != null && !idStr.isEmpty()) {
                             id = Integer.parseInt(idStr);
                             proj = projetoDAO.findById(id);
@@ -116,11 +115,11 @@ public class MenuProjetos {
 
 
                         break;
-                    case '4':     // Remover Projeto por ID
+                    case 4:     // Remover Projeto por ID
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id"));
+                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para remover"));
                         proj = projetoDAO.findById(id);
                         if(proj.isPresent()){
                             Projeto projeto = proj.get();
@@ -130,13 +129,11 @@ public class MenuProjetos {
 
 
                         break;
-                    case '5':     // Exibir Projeto(s) por NOME
+                    case 5:     // Exibir Projeto(s) por NOME
 
 
 
-                        String nome = JOptionPane.showInputDialog("Nome");
-                        proj = projetoDAO.findByNome(nome);
-
+                        proj = projetoDAO.findByNomeProjeto(JOptionPane.showInputDialog("Nome do projeto"));
                         if(!proj.isEmpty()){
                             listarProjeto(proj);
                         } else {
@@ -146,10 +143,10 @@ public class MenuProjetos {
 
 
                         break;
-                    case '6':     // Exibir Projeto(s) pela DATA_INICIO e DATA_FIM
+                    case 6:     // Exibir Projeto(s) pela DATA_INICIO e DATA_FIM
 
                         break;
-                    case '7':     // Exibir todos os Projetos
+                    case 7:     // Exibir todos os Projetos
 
 
 
@@ -158,7 +155,7 @@ public class MenuProjetos {
 
 
                         break;
-                    case '8':     // Menu anterior
+                    case 8:     // Menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -168,6 +165,6 @@ public class MenuProjetos {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while(opcao != '8');
+        } while(opcao != 8);
     }
 }

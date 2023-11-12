@@ -27,7 +27,6 @@ public class MenuTarefas {
     private ProjetoDAO projetoDAO;
 
     public void obterTarefa(Tarefa tare){
-
         String descricao = JOptionPane.showInputDialog("Descrição", tare.getDescricaoTarefa());
         String status = JOptionPane.showInputDialog("Status", tare.getStatusTarefa());
 
@@ -42,7 +41,6 @@ public class MenuTarefas {
 
         tare.setDesenvolvedor(desenvolvedorDAO.getReferenceById(idDesenvolvedor));
         tare.setProjeto(projetoDAO.getReferenceById(idProjeto));
-
     }
 
     public void listarTarefa(Optional<Tarefa> tare){
@@ -67,8 +65,9 @@ public class MenuTarefas {
                 .append("6 - Exibir Tarefa pelo ID do desenvolvedor\n")
                 .append("7 - Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM\n")
                 .append("8 - Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa\n")
-                .append("9 - Menu anterior");
-        char opcao = '0';
+                .append("9 - Contar tarefas pelo ID do projeto\n")
+                .append("10 - Menu anterior");
+        int opcao = 0;
         do {
             try {
 
@@ -76,17 +75,21 @@ public class MenuTarefas {
                 Tarefa taref;
                 Integer id;
 
-                opcao = JOptionPane.showInputDialog(menu).charAt(0);
+                opcao = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcao) {
-                    case '1':     // Inserir Tarefa
+                    case 1:     // Inserir Tarefa
+
+
 
                         tare = Optional.of(new Tarefa());
                         taref = tare.get();
                         obterTarefa(taref);
                         tarefaDAO.save(taref);
 
+
+
                         break;
-                    case '2':     // Exibir Tarefa por ID
+                    case 2:     // Exibir Tarefa por ID
 
 
 
@@ -94,12 +97,14 @@ public class MenuTarefas {
                         tare = tarefaDAO.findById(id);
                         if (tare.isPresent()){
                             listarTarefa(tarefaDAO.findById(id));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar uma Tarefa com esse id.");
                         }
 
 
 
                         break;
-                    case '3':     // Atualizar Tarefa por ID
+                    case 3:     // Atualizar Tarefa por ID
 
 
 
@@ -112,23 +117,29 @@ public class MenuTarefas {
                                 obterTarefa(taref);
                                 tarefaDAO.save(taref);
                             } else {
-                                JOptionPane.showMessageDialog(null, "Não foi possível atualizar, pois a Tarefa não foi encontrada.");
+                                JOptionPane.showMessageDialog(null, "Não foi possivel encontrar uma Tarefa com esse id.");
                             }
                         }
 
 
 
                         break;
-                    case '4':     // Remover Tarefa por ID
+                    case 4:     // Remover Tarefa por ID
+
+
 
                         id = Integer.parseInt(JOptionPane.showInputDialog("Id para remover"));
                         tare = tarefaDAO.findById(id);
                         if(tare.isPresent()){
                             tarefaDAO.deleteById(id);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar uma Tarefa com esse id.");
                         }
 
+
+
                         break;
-                    case '5':     // Exibir Tarefa(s) pelo ID do projeto
+                    case 5:     // Exibir Tarefa(s) pelo ID do projeto
 
 
 
@@ -137,7 +148,7 @@ public class MenuTarefas {
 
 
                         break;
-                    case '6':     // Exibir Tarefa(s) pelo ID do desenvolvedor
+                    case 6:     // Exibir Tarefa(s) pelo ID do desenvolvedor
 
 
 
@@ -146,10 +157,10 @@ public class MenuTarefas {
 
 
                         break;
-                    case '7':     // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
+                    case 7:     // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
 
                         break;
-                    case '8':     // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa
+                    case 8:     // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa
 
 
 
@@ -158,7 +169,16 @@ public class MenuTarefas {
 
 
                         break;
-                    case '9':    // Menu anterior
+                    case 9:     // Contar tarefas pelo ID do projeto
+
+
+
+                        JOptionPane.showMessageDialog(null, tarefaDAO.countByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id do projeto"))));
+
+
+
+                        break;
+                    case 10:    // Menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -168,6 +188,6 @@ public class MenuTarefas {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while(opcao != '9');
+        } while(opcao != 10);
     }
 }
