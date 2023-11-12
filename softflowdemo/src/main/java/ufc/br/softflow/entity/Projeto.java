@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -25,9 +26,9 @@ public class Projeto {
 
     private String descricaoProjeto;
 
-    private Date dataInicioProjeto;
+    private LocalDate dataInicioProjeto;
 
-    private Date dataFimProjeto;
+    private LocalDate dataFimProjeto;
 
     private String statusProjeto;
 

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tarefa")
@@ -22,8 +22,8 @@ public class Tarefa {
 
     private String descricaoTarefa;
     private String statusTarefa;
-    private Date dataInicioTarefa;
-    private Date dataFimTarefa;
+    private LocalDate dataInicioTarefa;
+    private LocalDate dataFimTarefa;
 
     // Um desenvolvedor pode ter várias tarefas
     @ManyToOne

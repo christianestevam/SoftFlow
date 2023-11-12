@@ -20,8 +20,6 @@ public class SoftflowdemoApplication implements CommandLineRunner {
     @Autowired
     private MenuDesenvolvedores menuDesenvolvedores;
     @Autowired
-    private MenuEquipes menuEquipes;
-    @Autowired
     private MenuProjetos menuProjetos;
     @Autowired
     private MenuTarefas menuTarefas;
@@ -35,10 +33,9 @@ public class SoftflowdemoApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         StringBuilder menu = new StringBuilder("Menu Principal\n")
                 .append("1 - Desenvolvedor\n")
-                .append("2 - Equipe\n")
-                .append("3 - Projetos\n")
-                .append("4 - Tarefas\n")
-                .append("5 - Sair\n");
+                .append("2 - Projetos\n")
+                .append("3 - Tarefas\n")
+                .append("4 - Sair\n");
         int opcao = 0;
         do {
             try {
@@ -47,16 +44,13 @@ public class SoftflowdemoApplication implements CommandLineRunner {
                     case '1':     // Desenvolvedores
                         menuDesenvolvedores.menu();
                         break;
-                    case '2':     // Equipes
-                        menuEquipes.menu();
-                        break;
-                    case '3':     // Projetos
+                    case '2':     // Projetos
                         menuProjetos.menu();
                         break;
-                    case '4':     // Tarefas
+                    case '3':     // Tarefas
                         menuTarefas.menu();
                         break;
-                    case '5':     // Sair
+                    case '4':     // Sair
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -67,6 +61,6 @@ public class SoftflowdemoApplication implements CommandLineRunner {
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
 
-        } while(opcao != '5');
+        } while(opcao != '4');
     }
 }
