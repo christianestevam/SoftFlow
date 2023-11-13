@@ -30,17 +30,35 @@ public class MenuTarefas {
         String descricao = JOptionPane.showInputDialog("Descrição", tare.getDescricaoTarefa());
         String status = JOptionPane.showInputDialog("Status", tare.getStatusTarefa());
 
-        Integer idDesenvolvedor = Integer.parseInt(JOptionPane.showInputDialog("IdDesenvolvedor", tare.getDesenvolvedor().getIdDesenvolvedor()));
-        Integer idProjeto = Integer.parseInt(JOptionPane.showInputDialog("IdProjeto", tare.getProjeto().getIdProjeto()));
 
-        tare.setDataInicioTarefa(LocalDate.now());
-        tare.setDataFimTarefa(LocalDate.now());
+        String idDesenvolvedorStr = JOptionPane.showInputDialog("IdDesenvolvedor", null);
+        String idProjetoStr =JOptionPane.showInputDialog("IdProjeto", null);
+        Integer idDesenvolvedor = null;
+        Integer idProjeto = null;
+        if (idDesenvolvedorStr != null && !idDesenvolvedorStr.isEmpty()){
+            idDesenvolvedor = Integer.parseInt(idDesenvolvedorStr);
+            tare.setDesenvolvedor(desenvolvedorDAO.getReferenceById(idDesenvolvedor));
+        } else {
+            tare.setDesenvolvedor(null);
+        }
+        if (idProjetoStr != null && !idProjetoStr.isEmpty()){
+            idProjeto = Integer.parseInt(idProjetoStr);
+            tare.setProjeto(projetoDAO.getReferenceById(idProjeto));
+        } else {
+            tare.setProjeto(null);
+        }
+
+
+        String dataInicio = JOptionPane.showInputDialog("Data de início formato AAAA-MM-DD:");
+        LocalDate dataInicioTarefa = LocalDate.parse(dataInicio);
+        tare.setDataInicioTarefa(dataInicioTarefa);
+
+        String dataFim = JOptionPane.showInputDialog("Data de fim formato AAAA-MM-DD:");
+        LocalDate dataFimTarefa = LocalDate.parse(dataFim);
+        tare.setDataFimTarefa(dataFimTarefa);
 
         tare.setDescricaoTarefa(descricao);
         tare.setStatusTarefa(status);
-
-        tare.setDesenvolvedor(desenvolvedorDAO.getReferenceById(idDesenvolvedor));
-        tare.setProjeto(projetoDAO.getReferenceById(idProjeto));
     }
 
     public void listarTarefa(Optional<Tarefa> tare){
@@ -158,6 +176,19 @@ public class MenuTarefas {
 
                         break;
                     case 7:     // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
+
+
+
+                        String dataInicioStr = JOptionPane.showInputDialog("Digite a data de início no formato AAAA-MM-DD:");
+                        LocalDate dataInicio = LocalDate.parse(dataInicioStr);
+
+                        String dataFimStr = JOptionPane.showInputDialog("Digite a data de fim no formato AAAA-MM-DD:");
+                        LocalDate dataFim = LocalDate.parse(dataFimStr);
+
+                        List<Tarefa> tarefas = tarefaDAO.findByDataInicioFim(dataInicio, dataFim);
+                        listarTarefas(tarefas);
+
+
 
                         break;
                     case 8:     // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa

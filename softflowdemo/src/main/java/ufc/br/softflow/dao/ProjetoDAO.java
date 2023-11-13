@@ -26,10 +26,6 @@ public interface ProjetoDAO extends JpaRepository <Projeto, Integer> {
     @Query("SELECT p FROM Projeto p WHERE p.nomeProjeto = :nomeProjeto")
     Optional<Projeto> findByNome(@Param("nomeProjeto") String nomeProjeto);
 
-    // Exibir Projeto pela DATA_INICIO e DATA_FIM
-    @Query("SELECT p FROM Projeto p WHERE p.dataInicioProjeto = :dataInicioProjeto AND p.dataFimProjeto = :dataFimProjeto")
-    Optional<Projeto> findByDataInicioFim(@Param("dataInicioProjeto") Date dataInicioProjeto, @Param("dataFimProjeto") Date dataFimProjeto);
-
     // Exibir todos os Projetos
     @Query("SELECT p FROM Projeto p")
     List<Projeto> findAll();

@@ -8,7 +8,6 @@ import javax.swing.*;
 import ufc.br.softflow.dao.ProjetoDAO;
 import ufc.br.softflow.entity.Projeto;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +21,6 @@ public class MenuProjetos {
     public void obterProjeto(Projeto proj){
         String nome = JOptionPane.showInputDialog("Nome", proj.getNomeProjeto());
         String descricao = JOptionPane.showInputDialog("Descrição", proj.getDescricaoProjeto());
-
-
-        proj.setDataInicioProjeto(LocalDate.now());
-        proj.setDataFimProjeto(LocalDate.now());
-
 
         String status = JOptionPane.showInputDialog("Status", proj.getStatusProjeto());;
         String notas = JOptionPane.showInputDialog("Notas", proj.getNotasProjeto());;
@@ -56,9 +50,8 @@ public class MenuProjetos {
                 .append("3 - Atualizar Projeto por ID\n")
                 .append("4 - Remover Projeto por ID\n")
                 .append("5 - Exibir Projeto(s) por NOME\n")
-                .append("6 - Exibir Projeto(s) pela DATA_INICIO e DATA_FIM\n")
-                .append("7 - Exibir todos os Projetos\n")
-                .append("8 - Menu anterior");
+                .append("6 - Exibir todos os Projetos\n")
+                .append("7 - Menu anterior");
         int opcao = 0;
         do {
             try {
@@ -143,10 +136,7 @@ public class MenuProjetos {
 
 
                         break;
-                    case 6:     // Exibir Projeto(s) pela DATA_INICIO e DATA_FIM
-
-                        break;
-                    case 7:     // Exibir todos os Projetos
+                    case 6:     // Exibir todos os Projetos
 
 
 
@@ -155,7 +145,7 @@ public class MenuProjetos {
 
 
                         break;
-                    case 8:     // Menu anterior
+                    case 7:     // Menu anterior
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida");
@@ -165,6 +155,6 @@ public class MenuProjetos {
                 log.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             }
-        } while(opcao != 8);
+        } while(opcao != 7);
     }
 }

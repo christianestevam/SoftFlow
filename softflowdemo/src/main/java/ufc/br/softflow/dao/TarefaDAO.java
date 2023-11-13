@@ -4,6 +4,8 @@ package ufc.br.softflow.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import ufc.br.softflow.entity.Tarefa;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.sql.Date;
 
@@ -23,8 +25,8 @@ public interface TarefaDAO extends JpaRepository <Tarefa, Integer> {
     List<Tarefa> findByIdDesenvolvedor(@Param("idDesenvolvedor") Long idDesenvolvedor);
 
     // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
-    @Query(value = "SELECT * FROM tarefa WHERE data_inicio_tarefa = :dataInicioTarefa AND data_fim_tarefa = :dataFimTarefa", nativeQuery = true)
-    List<Tarefa> findByDataInicioFim(@Param("dataInicioTarefa") Date dataInicioTarefa, @Param("dataFimTarefa") Date dataFimTarefa);
+    @Query(value = "SELECT * FROM tarefa WHERE data_inicio_tarefa BETWEEN :dataInicioTarefa AND :dataFimTarefa", nativeQuery = true)
+    List<Tarefa> findByDataInicioFim(@Param("dataInicioTarefa") LocalDate dataInicioTarefa, @Param("dataFimTarefa") LocalDate dataFimTarefa);
 
     // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa
     @Query(value = "SELECT * FROM tarefa WHERE id_projeto = :idProjeto AND status_tarefa = :statusTarefa", nativeQuery = true)

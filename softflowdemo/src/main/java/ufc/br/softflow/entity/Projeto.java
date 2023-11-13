@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -29,10 +28,6 @@ public class Projeto {
 
     private String descricaoProjeto;
 
-    private LocalDate dataInicioProjeto;
-
-    private LocalDate dataFimProjeto;
-
     private String statusProjeto;
 
     private String notasProjeto;
@@ -47,7 +42,7 @@ public class Projeto {
 
     @Override
     public String toString(){
-        return "Projeto [id:" + idProjeto + ", nome:" + nomeProjeto + ", descricao:" + descricaoProjeto + ", dataInicio:" + dataInicioProjeto + ", dataFim:" + dataFimProjeto + ", status:" + statusProjeto + ", notas:" + notasProjeto;
+        return "Projeto [id:" + idProjeto + ", nome:" + nomeProjeto + ", descricao:" + descricaoProjeto + ", status:" + statusProjeto + ", notas:" + notasProjeto;
     }
 
 }
