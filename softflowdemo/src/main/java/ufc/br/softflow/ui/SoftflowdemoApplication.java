@@ -20,11 +20,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Slf4j
 public class SoftflowdemoApplication implements CommandLineRunner {
 
-    //@Autowired
+    @Autowired
     private MenuDesenvolvedores menuDesenvolvedores;
-    //@Autowired
+    @Autowired
     private MenuProjetos menuProjetos;
-    //@Autowired
+    @Autowired
     private MenuTarefas menuTarefas;
 
     public static void main(String[] args) {

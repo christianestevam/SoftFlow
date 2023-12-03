@@ -16,10 +16,10 @@ import javax.swing.*;
 @Component
 public class MenuDesenvolvedores {
 
-    //@Autowired
+    @Autowired
     private DesenvolvedorDAO desenvolvedorDAO;
 
-    //@Autowired
+    @Autowired
     private ProjetoDAO projetoDAO;
 
     public void obterDesenvolvedor(Desenvolvedor dev){
@@ -89,7 +89,7 @@ public class MenuDesenvolvedores {
 
                         dev = desenvolvedorDAO.findById(JOptionPane.showInputDialog("Id para exibir"));
                         if(dev.isPresent()){
-                            listarDesenvolvedor(desenvolvedorDAO.findById(dev.get().getIdDesenvolvedor()));
+                            listarDesenvolvedor(desenvolvedorDAO.findById(dev.get().getId()));
                         } else {
                             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
                         }

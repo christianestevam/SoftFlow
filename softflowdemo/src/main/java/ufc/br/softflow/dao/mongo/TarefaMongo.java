@@ -17,16 +17,16 @@ import ufc.br.softflow.entity.Tarefa;
 @EnableMongoRepositories
 public interface TarefaMongo extends TarefaDAO, MongoRepository<Tarefa, String> {
 
-    List<Tarefa> findByIdProjeto(String idProjeto);
+    //List<Tarefa> findById(String id);
+//
+//    @Query("{ 'desenvolvedor.id' : { $regex: ?0 } }")
+//    List<Tarefa> findByIdDesenvolvedor(String idDesenvolvedor);
+//
+//    @Query("{ 'dataInicio' : { $gte: ?0 }, 'dataFim' : { $lte: ?1 } }")
+//    List<Tarefa> findByDataInicioFim(LocalDate dataInicioTarefa, LocalDate dataFimTarefa);
 
-    @Query("{ 'desenvolvedor.id' : { $regex: ?0 } }")
-    List<Tarefa> findByIdDesenvolvedor(String idDesenvolvedor);
-
-    @Query("{ 'dataInicio' : { $gte: ?0 }, 'dataFim' : { $lte: ?1 } }")
-    List<Tarefa> findByDataInicioFim(LocalDate dataInicioTarefa, LocalDate dataFimTarefa);
-
-    @Query("{ 'projeto.id' : { $regex: ?0 }, 'status' : { $regex: ?1 } }")
-    List<Tarefa> findByIdProjetoStatus(String idProjeto, String statusTarefa);
+//    @Query("{ 'projeto.id' : { $regex: ?0 }, 'status' : { $regex: ?1 } }")
+//    List<Tarefa> findByIdProjetoStatus(String idProjeto, String statusTarefa);
 
     @Query(value = "{ 'projeto.id' : { $regex: ?0 } }", count = true)
     Integer countByIdProjeto(String idProjeto);

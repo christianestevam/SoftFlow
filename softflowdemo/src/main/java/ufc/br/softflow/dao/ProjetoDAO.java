@@ -8,25 +8,20 @@ import java.util.*;
 
 public interface ProjetoDAO {
 
-    Optional<Projeto> findById(String idProjeto);
-
-    Optional<Projeto> findByNome(String nomeProjeto);
-
-    List<Projeto> findAll();
-
-    List<Desenvolvedor> findByDesenvolvedores(String idProjeto);
-
-    List<Tarefa> findByTarefas(String idProjeto);
-
-    Integer findByQuantidadeTarefas(String idProjeto);
-
-    Optional<Projeto> findByIdProjeto(String idProjeto);
+    Optional<Projeto> findById(String id);
 
     Optional<Projeto> findByNomeProjeto(String nomeProjeto);
+
+    List<Projeto> findAll();
+//
+//    List<Desenvolvedor> findByDesenvolvedores(String idProjeto);
+//
+//    List<Tarefa> findByTarefas(String idProjeto);
 
     public Projeto save(Projeto projeto);
 
     Projeto getReferenceById(String idProjetoStr);
 
-    public void deleteById(int i);
+    public void deleteById(String id);
+
 }

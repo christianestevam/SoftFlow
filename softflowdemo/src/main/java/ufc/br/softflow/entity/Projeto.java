@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @NamedQueries({
-        @NamedQuery(name = "projetoPorId", query = "select p from Projeto p where p.idProjeto = :id"),
+        @NamedQuery(name = "projetoPorId", query = "select p from Projeto p where p.id = :id"),
         // pelo nome do projeto
         @NamedQuery(name = "findByNome", query = "select p from Projeto p where p.nomeProjeto = :nome")
 })
@@ -21,9 +21,9 @@ import java.util.List;
 
 public class Projeto {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String idProjeto;
+    @Id
+    private String id;
 
     private String nomeProjeto;
 
@@ -43,7 +43,7 @@ public class Projeto {
 
     @Override
     public String toString(){
-        return "Projeto [id:" + idProjeto + ", nome:" + nomeProjeto + ", descricao:" + descricaoProjeto + ", status:" + statusProjeto + ", notas:" + notasProjeto;
+        return "Projeto [id:" + id + ", nome:" + nomeProjeto + ", descricao:" + descricaoProjeto + ", status:" + statusProjeto + ", notas:" + notasProjeto;
     }
 
 }

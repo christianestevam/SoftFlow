@@ -20,13 +20,13 @@ import java.util.*;
 @Component
 public class MenuTarefas {
 
-    //@Autowired
+    @Autowired
     private TarefaDAO tarefaDAO;
 
-    //@Autowired
+    @Autowired
     private DesenvolvedorDAO desenvolvedorDAO;
 
-    //@Autowired
+    @Autowired
     private ProjetoDAO projetoDAO;
 
     public void obterTarefa(Tarefa tare){
@@ -159,7 +159,7 @@ public class MenuTarefas {
 
 
 
-                        listarTarefas(tarefaDAO.findByIdProjeto(JOptionPane.showInputDialog("Id projeto")));
+//                        listarTarefas(tarefaDAO.findByIdProjeto(JOptionPane.showInputDialog("Id projeto")));
 
 
 
@@ -168,7 +168,7 @@ public class MenuTarefas {
 
 
 
-                        listarTarefas(tarefaDAO.findByIdDesenvolvedor(JOptionPane.showInputDialog("Id desenvolvedor")));
+//                        listarTarefas(tarefaDAO.findByIdDesenvolvedor(JOptionPane.showInputDialog("Id desenvolvedor")));
 
 
 
@@ -177,14 +177,14 @@ public class MenuTarefas {
 
 
 
-                        String dataInicioStr = JOptionPane.showInputDialog("Digite a data de início no formato AAAA-MM-DD:");
-                        LocalDate dataInicio = LocalDate.parse(dataInicioStr);
-
-                        String dataFimStr = JOptionPane.showInputDialog("Digite a data de fim no formato AAAA-MM-DD:");
-                        LocalDate dataFim = LocalDate.parse(dataFimStr);
-
-                        List<Tarefa> tarefas = tarefaDAO.findByDataInicioFim(dataInicio, dataFim);
-                        listarTarefas(tarefas);
+//                        String dataInicioStr = JOptionPane.showInputDialog("Digite a data de início no formato AAAA-MM-DD:");
+//                        LocalDate dataInicio = LocalDate.parse(dataInicioStr);
+//
+//                        String dataFimStr = JOptionPane.showInputDialog("Digite a data de fim no formato AAAA-MM-DD:");
+//                        LocalDate dataFim = LocalDate.parse(dataFimStr);
+//
+//                        List<Tarefa> tarefas = tarefaDAO.findByDataInicioFim(dataInicio, dataFim);
+//                        listarTarefas(tarefas);
 
 
 
@@ -193,7 +193,7 @@ public class MenuTarefas {
 
 
 
-                        listarTarefas(tarefaDAO.findByIdProjetoStatus(JOptionPane.showInputDialog("Id do projeto"), JOptionPane.showInputDialog("Estado da tarefa")));
+//                        listarTarefas(tarefaDAO.findByIdProjetoStatus(JOptionPane.showInputDialog("Id do projeto"), JOptionPane.showInputDialog("Estado da tarefa")));
 
 
 

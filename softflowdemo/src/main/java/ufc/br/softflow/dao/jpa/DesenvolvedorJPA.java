@@ -18,7 +18,7 @@ import ufc.br.softflow.entity.Tarefa;
 //@EnableJpaRepositories
 public interface DesenvolvedorJPA extends JpaRepository <Desenvolvedor, Integer> {
 
-    @Query("SELECT d FROM Desenvolvedor d WHERE d.idDesenvolvedor = :idDesenvolvedor")
+    @Query("SELECT d FROM Desenvolvedor d WHERE d.id = :idDesenvolvedor")
     Optional<Desenvolvedor> findById(@Param("idDesenvolvedor") String idDesenvolvedor);
 
     @Query("SELECT d FROM Desenvolvedor d WHERE d.nome = :nome")
@@ -27,13 +27,13 @@ public interface DesenvolvedorJPA extends JpaRepository <Desenvolvedor, Integer>
     @Query("SELECT d FROM Desenvolvedor d WHERE d.email = :email")
     Optional<Desenvolvedor> findByEmail(@Param("email") String email);
 
-    @Query("SELECT d FROM Desenvolvedor d WHERE d.projeto.idProjeto = :idProjeto")
+    @Query("SELECT d FROM Desenvolvedor d WHERE d.projeto.id = :idProjeto")
     List<Desenvolvedor> findByProjeto(@Param("idProjeto") String idProjeto);
 
     @Query("SELECT d FROM Desenvolvedor d")
     List<Desenvolvedor> findAll();
 
-    @Query("SELECT d.tarefas FROM Desenvolvedor d WHERE d.idDesenvolvedor = :idDesenvolvedor")
+    @Query("SELECT d.tarefas FROM Desenvolvedor d WHERE d.id = :idDesenvolvedor")
     List<Tarefa> findTarefas(@Param("idDesenvolvedor") String idDesenvolvedor);
 
     // Native Query

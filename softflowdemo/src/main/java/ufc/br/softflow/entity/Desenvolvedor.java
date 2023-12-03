@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @NamedQueries({
-        @NamedQuery(name = "desenvolvedorPorId", query = "select d from Desenvolvedor d where d.idDesenvolvedor = :id")
+        @NamedQuery(name = "desenvolvedorPorId", query = "select d from Desenvolvedor d where d.id = :id")
 })
 
 @Entity
@@ -19,11 +19,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 public class Desenvolvedor {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-
-    @Column(name = "id_desenvolvedor")
-    private String idDesenvolvedor;
+    @Id
+    private String id;
 
     private String nome;
     private String email;
@@ -43,12 +41,12 @@ public class Desenvolvedor {
 
         String idstr;
         if(projeto != null){
-            idstr = projeto.getIdProjeto();
+            idstr = projeto.getId();
         } else {
             idstr = "null";
         }
 
-        return "Desenvolvedor [id:" + idDesenvolvedor + ", nome:" + nome + ", email:" + email + ", funcao:" + funcao + ", projeto:" + idstr;
+        return "Desenvolvedor [id:" + id + ", nome:" + nome + ", email:" + email + ", funcao:" + funcao + ", projeto:" + idstr + "]";
     }
 
 

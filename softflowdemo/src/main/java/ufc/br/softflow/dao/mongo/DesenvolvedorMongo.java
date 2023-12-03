@@ -14,17 +14,13 @@ import ufc.br.softflow.entity.Tarefa;
 
 @Primary
 @Repository
-@EnableMongoRepositories
 public interface DesenvolvedorMongo extends DesenvolvedorDAO, MongoRepository<Desenvolvedor, String> {
 
-    Optional<Desenvolvedor> findById(String idDesenvolvedor);
+    Optional<Desenvolvedor> findById(String id);
 
     Optional<Desenvolvedor> findByNome(String nome);
 
     Optional<Desenvolvedor> findByEmail(String email);
-
-    @Query("{ 'projeto.id' : { $regex: ?0 } }")
-    List<Desenvolvedor> findByProjeto(String idProjeto);
 
     List<Desenvolvedor> findAll();
 

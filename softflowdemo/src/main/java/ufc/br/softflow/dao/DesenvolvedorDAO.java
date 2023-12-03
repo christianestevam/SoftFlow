@@ -7,13 +7,11 @@ import java.util.*;
 
 public interface DesenvolvedorDAO {
 
-    Optional<Desenvolvedor> findById(String idDesenvolvedor);
+    Optional<Desenvolvedor> findById(String id);
 
     Optional<Desenvolvedor> findByNome(String nome);
 
     Optional<Desenvolvedor> findByEmail(String email);
-
-    List<Desenvolvedor> findByProjeto(String idProjeto);
 
     List<Desenvolvedor> findAll();
 

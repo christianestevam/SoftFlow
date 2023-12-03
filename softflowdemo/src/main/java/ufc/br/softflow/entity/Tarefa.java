@@ -7,9 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
 @NamedQueries({
-        @NamedQuery(name = "tarefaPorId", query = "select t from Tarefa t where t.idTarefa = :id"),
-        @NamedQuery(name = "findByProjeto", query = "select t from Tarefa t where t.projeto.idProjeto = :id"),
-        @NamedQuery(name = "findByDesenvolvedor", query = "select t from Tarefa t where t.desenvolvedor.idDesenvolvedor = :id")
+        @NamedQuery(name = "tarefaPorId", query = "select t from Tarefa t where t.id = :id"),
+        @NamedQuery(name = "findByProjeto", query = "select t from Tarefa t where t.projeto.id = :id"),
+        @NamedQuery(name = "findByDesenvolvedor", query = "select t from Tarefa t where t.desenvolvedor.id = :id")
 })
 
 @Entity
@@ -21,9 +21,9 @@ import java.time.LocalDate;
 
 public class Tarefa {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String idTarefa;
+    @Id
+    private String id;
 
     private String descricaoTarefa;
     private String statusTarefa;
@@ -42,9 +42,9 @@ public class Tarefa {
 
     @Override
     public String toString(){
-        String idstr = desenvolvedor.getIdDesenvolvedor();
-        String idstr2 = projeto.getIdProjeto();
-        return "Tarefa [id:" + idTarefa + ", descricao:" + descricaoTarefa + ", status:" + statusTarefa + ", dataInicio:" + dataInicioTarefa + ", dataFim:" + dataFimTarefa + ", desenvolvedor:" + idstr + ", projeto:" + idstr2;
+        String idstr = desenvolvedor.getId();
+        String idstr2 = projeto.getId();
+        return "Tarefa [id:" + id + ", descricao:" + descricaoTarefa + ", status:" + statusTarefa + ", dataInicio:" + dataInicioTarefa + ", dataFim:" + dataFimTarefa + ", desenvolvedor:" + idstr + ", projeto:" + idstr2;
     }
 
 }

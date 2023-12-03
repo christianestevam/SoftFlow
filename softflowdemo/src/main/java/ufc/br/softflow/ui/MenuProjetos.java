@@ -16,7 +16,7 @@ import java.util.Optional;
 @Component
 public class MenuProjetos {
 
-    //@Autowired
+    @Autowired
     private ProjetoDAO projetoDAO;
 
     public void obterProjeto(Projeto proj){
@@ -79,9 +79,9 @@ public class MenuProjetos {
 
 
 
-                        proj = projetoDAO.findByIdProjeto(JOptionPane.showInputDialog("Id para exibir"));
+                        proj = projetoDAO.findById(JOptionPane.showInputDialog("Id para exibir"));
                         if(proj.isPresent()){
-                            listarProjeto(projetoDAO.findByIdProjeto(proj.get().getIdProjeto()));
+                            listarProjeto(projetoDAO.findById(proj.get().getId()));
                         } else {
                             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Projeto com esse Id");
                         }
@@ -116,7 +116,7 @@ public class MenuProjetos {
                         proj = projetoDAO.findById(id);
                         if(proj.isPresent()){
                             Projeto projeto = proj.get();
-                            projetoDAO.deleteById(Integer.parseInt(projeto.getIdProjeto()));
+                            projetoDAO.deleteById(projeto.getId());
                         }
 
 
