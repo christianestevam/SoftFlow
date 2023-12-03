@@ -1,46 +1,27 @@
 package ufc.br.softflow.dao;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import ufc.br.softflow.entity.Desenvolvedor;
 import ufc.br.softflow.entity.Tarefa;
 
+import java.util.*;
 
-@Repository
-public interface DesenvolvedorDAO extends JpaRepository <Desenvolvedor, Integer> {
+public interface DesenvolvedorDAO {
 
-    @Query("SELECT d FROM Desenvolvedor d WHERE d.idDesenvolvedor = :idDesenvolvedor")
-    Optional<Desenvolvedor> findById(@Param("idDesenvolvedor") Long idDesenvolvedor);
+    Optional<Desenvolvedor> findById(String idDesenvolvedor);
 
-    @Query("SELECT d FROM Desenvolvedor d WHERE d.nome = :nome")
-    Optional<Desenvolvedor> findByNome(@Param("nome") String nome);
+    Optional<Desenvolvedor> findByNome(String nome);
 
-    @Query("SELECT d FROM Desenvolvedor d WHERE d.email = :email")
-    Optional<Desenvolvedor> findByEmail(@Param("email") String email);
+    Optional<Desenvolvedor> findByEmail(String email);
 
-    @Query("SELECT d FROM Desenvolvedor d WHERE d.projeto.idProjeto = :idProjeto")
-    List<Desenvolvedor> findByProjeto(@Param("idProjeto") Long idProjeto);
+    List<Desenvolvedor> findByProjeto(String idProjeto);
 
-    @Query("SELECT d FROM Desenvolvedor d")
     List<Desenvolvedor> findAll();
 
-    @Query("SELECT d.tarefas FROM Desenvolvedor d WHERE d.idDesenvolvedor = :idDesenvolvedor")
-    List<Tarefa> findTarefas(@Param("idDesenvolvedor") Long idDesenvolvedor);
+    List<Tarefa> findTarefas(String idDesenvolvedor);
 
-    // Native Query
-    @Query(value = "SELECT * FROM desenvolvedor WHERE id_projeto = :idProjeto", nativeQuery = true)
-    List<Desenvolvedor> findByIdProjeto(@Param("idProjeto") Long idProjeto);
+    List<Desenvolvedor> findByIdProjeto(String idProjeto);
 
-    // Native Query
-    @Query(value = "SELECT * FROM desenvolvedor WHERE id_desenvolvedor = :idDesenvolvedor", nativeQuery = true)
-    Optional<Desenvolvedor> findByIdDesenvolvedor(@Param("idDesenvolvedor") Long idDesenvolvedor);
-
-
-
+    public Desenvolvedor save(Desenvolvedor desenvolvedor);
+    public void deleteById(String idDesenvolvedor);
+    public Desenvolvedor getReferenceById(String idDesenvolvedor);
 }

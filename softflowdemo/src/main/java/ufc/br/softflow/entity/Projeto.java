@@ -1,28 +1,29 @@
 package ufc.br.softflow.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name = "projetoPorId", query = "select p from Projeto p where p.idProjeto = :id"),
+        // pelo nome do projeto
+        @NamedQuery(name = "findByNome", query = "select p from Projeto p where p.nomeProjeto = :nome")
+})
+
 @Entity
+@Document(collection = "projeto")
 @Table(name = "projeto")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@NamedQueries({
-    @NamedQuery(name = "projetoPorId", query = "select p from Projeto p where p.idProjeto = :id"),
-    // pelo nome do projeto
-    @NamedQuery(name = "findByNome", query = "select p from Projeto p where p.nomeProjeto = :nome")
-})
+
 public class Projeto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_projeto")
-    private Long idProjeto;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String idProjeto;
 
     private String nomeProjeto;
 

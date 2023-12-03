@@ -1,31 +1,29 @@
 package ufc.br.softflow.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import ufc.br.softflow.dao.ProjetoDAO;
-
+import lombok.*;
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@NamedQueries({
+        @NamedQuery(name = "desenvolvedorPorId", query = "select d from Desenvolvedor d where d.idDesenvolvedor = :id")
+})
 
 @Entity
+@Document(collection = "desenvolvedor")
 @Table(name = "desenvolvedor")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@NamedQueries({
-    @NamedQuery(name = "desenvolvedorPorId", query = "select d from Desenvolvedor d where d.idDesenvolvedor = :id")
 
-})
 public class Desenvolvedor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
+
     @Column(name = "id_desenvolvedor")
-    private Long idDesenvolvedor;
+    private String idDesenvolvedor;
 
     private String nome;
     private String email;
@@ -45,7 +43,7 @@ public class Desenvolvedor {
 
         String idstr;
         if(projeto != null){
-            idstr = Long.toString(projeto.getIdProjeto());
+            idstr = projeto.getIdProjeto();
         } else {
             idstr = "null";
         }

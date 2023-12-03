@@ -1,39 +1,26 @@
 package ufc.br.softflow.dao;
 
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import ufc.br.softflow.entity.Tarefa;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.sql.Date;
+import java.util.Optional;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
+public interface TarefaDAO {
+    
+    Optional<Tarefa> findById(String id);
 
-@Repository
-public interface TarefaDAO extends JpaRepository <Tarefa, Integer> {
+    List<Tarefa> findByIdProjeto(String idProjeto);
 
-    // Exibir Tarefa(s) pelo ID do projeto
-    @Query(value = "SELECT * FROM tarefa WHERE id_projeto = :idProjeto", nativeQuery = true)
-    List<Tarefa> findByIdProjeto(@Param("idProjeto") Long idProjeto);
+    List<Tarefa> findByIdDesenvolvedor(String idDesenvolvedor);
 
-    // Exibir Tarefa pelo ID do desenvolvedor
-    @Query(value = "SELECT * FROM tarefa WHERE id_desenvolvedor = :idDesenvolvedor", nativeQuery = true)
-    List<Tarefa> findByIdDesenvolvedor(@Param("idDesenvolvedor") Long idDesenvolvedor);
+    List<Tarefa> findByDataInicioFim(LocalDate dataInicioTarefa, LocalDate dataFimTarefa);
 
-    // Exibir Tarefa(s) pela DATA_INICIO e DATA_FIM
-    @Query(value = "SELECT * FROM tarefa WHERE data_inicio_tarefa BETWEEN :dataInicioTarefa AND :dataFimTarefa", nativeQuery = true)
-    List<Tarefa> findByDataInicioFim(@Param("dataInicioTarefa") LocalDate dataInicioTarefa, @Param("dataFimTarefa") LocalDate dataFimTarefa);
+    List<Tarefa> findByIdProjetoStatus(String idProjeto, String statusTarefa);
 
-    // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa
-    @Query(value = "SELECT * FROM tarefa WHERE id_projeto = :idProjeto AND status_tarefa = :statusTarefa", nativeQuery = true)
-    List<Tarefa> findByIdProjetoStatus(@Param("idProjeto") Long idProjeto, @Param("statusTarefa") String statusTarefa);
+    Integer countByIdProjeto(String idProjeto);
 
-    // Exibir quantidade total de tarefas do projeto
-    @Query(value = "SELECT COUNT(*) FROM tarefa WHERE id_projeto = :idProjeto", nativeQuery = true)
-    Integer countByIdProjeto(@Param("idProjeto") Long idProjeto);
+    public Tarefa save(Tarefa tarefa);
 
+    public void deleteById(String id);
 }

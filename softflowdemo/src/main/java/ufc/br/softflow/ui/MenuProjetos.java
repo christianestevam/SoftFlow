@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 
 import ufc.br.softflow.dao.ProjetoDAO;
+import ufc.br.softflow.dao.jpa.ProjetoJPA;
 import ufc.br.softflow.entity.Projeto;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Component
 public class MenuProjetos {
 
-    @Autowired
+    //@Autowired
     private ProjetoDAO projetoDAO;
 
     public void obterProjeto(Projeto proj){
@@ -58,7 +59,7 @@ public class MenuProjetos {
 
                 Optional<Projeto> proj;
                 Projeto proje;
-                Integer id;
+                String id;
 
                 opcao = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcao) {
@@ -78,7 +79,7 @@ public class MenuProjetos {
 
 
 
-                        proj = projetoDAO.findByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id para exibir")));
+                        proj = projetoDAO.findByIdProjeto(JOptionPane.showInputDialog("Id para exibir"));
                         if(proj.isPresent()){
                             listarProjeto(projetoDAO.findByIdProjeto(proj.get().getIdProjeto()));
                         } else {
@@ -92,9 +93,8 @@ public class MenuProjetos {
 
 
 
-                        String idStr = JOptionPane.showInputDialog("Id para atualizar");
-                        if (idStr != null && !idStr.isEmpty()) {
-                            id = Integer.parseInt(idStr);
+                        id = JOptionPane.showInputDialog("Id para atualizar");
+                        if (id != null && !id.isEmpty()) {
                             proj = projetoDAO.findById(id);
                             if(proj.isPresent()){
                                 proje = proj.get();
@@ -112,11 +112,11 @@ public class MenuProjetos {
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para remover"));
+                        id = JOptionPane.showInputDialog("Id para remover");
                         proj = projetoDAO.findById(id);
                         if(proj.isPresent()){
                             Projeto projeto = proj.get();
-                            projetoDAO.deleteById(Math.toIntExact(projeto.getIdProjeto()));
+                            projetoDAO.deleteById(Integer.parseInt(projeto.getIdProjeto()));
                         }
 
 

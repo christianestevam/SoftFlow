@@ -8,6 +8,9 @@ import javax.swing.*;
 import ufc.br.softflow.dao.DesenvolvedorDAO;
 import ufc.br.softflow.dao.ProjetoDAO;
 import ufc.br.softflow.dao.TarefaDAO;
+import ufc.br.softflow.dao.jpa.DesenvolvedorJPA;
+import ufc.br.softflow.dao.jpa.ProjetoJPA;
+import ufc.br.softflow.dao.jpa.TarefaJPA;
 import ufc.br.softflow.entity.Tarefa;
 
 import java.time.LocalDate;
@@ -17,13 +20,13 @@ import java.util.*;
 @Component
 public class MenuTarefas {
 
-    @Autowired
+    //@Autowired
     private TarefaDAO tarefaDAO;
 
-    @Autowired
+    //@Autowired
     private DesenvolvedorDAO desenvolvedorDAO;
 
-    @Autowired
+    //@Autowired
     private ProjetoDAO projetoDAO;
 
     public void obterTarefa(Tarefa tare){
@@ -33,17 +36,13 @@ public class MenuTarefas {
 
         String idDesenvolvedorStr = JOptionPane.showInputDialog("IdDesenvolvedor", null);
         String idProjetoStr =JOptionPane.showInputDialog("IdProjeto", null);
-        Integer idDesenvolvedor = null;
-        Integer idProjeto = null;
         if (idDesenvolvedorStr != null && !idDesenvolvedorStr.isEmpty()){
-            idDesenvolvedor = Integer.parseInt(idDesenvolvedorStr);
-            tare.setDesenvolvedor(desenvolvedorDAO.getReferenceById(idDesenvolvedor));
+            tare.setDesenvolvedor(desenvolvedorDAO.getReferenceById(idProjetoStr));
         } else {
             tare.setDesenvolvedor(null);
         }
         if (idProjetoStr != null && !idProjetoStr.isEmpty()){
-            idProjeto = Integer.parseInt(idProjetoStr);
-            tare.setProjeto(projetoDAO.getReferenceById(idProjeto));
+            tare.setProjeto(projetoDAO.getReferenceById(idProjetoStr));
         } else {
             tare.setProjeto(null);
         }
@@ -91,7 +90,7 @@ public class MenuTarefas {
 
                 Optional<Tarefa> tare;
                 Tarefa taref;
-                Integer id;
+                String id;
 
                 opcao = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcao) {
@@ -111,7 +110,7 @@ public class MenuTarefas {
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para exibir"));
+                        id = JOptionPane.showInputDialog("Id para exibir");
                         tare = tarefaDAO.findById(id);
                         if (tare.isPresent()){
                             listarTarefa(tarefaDAO.findById(id));
@@ -126,9 +125,8 @@ public class MenuTarefas {
 
 
 
-                        String idStr = JOptionPane.showInputDialog("Id para atualizar");
-                        if (idStr != null && !idStr.isEmpty()) {
-                            id = Integer.parseInt(idStr);
+                        id = JOptionPane.showInputDialog("Id para atualizar");
+                        if (id != null && !id.isEmpty()) {
                             tare = tarefaDAO.findById(id);
                             if (tare.isPresent()) {
                                 taref = tare.get();
@@ -146,7 +144,7 @@ public class MenuTarefas {
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para remover"));
+                        id = JOptionPane.showInputDialog("Id para remover");
                         tare = tarefaDAO.findById(id);
                         if(tare.isPresent()){
                             tarefaDAO.deleteById(id);
@@ -161,7 +159,7 @@ public class MenuTarefas {
 
 
 
-                        listarTarefas(tarefaDAO.findByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id projeto"))));
+                        listarTarefas(tarefaDAO.findByIdProjeto(JOptionPane.showInputDialog("Id projeto")));
 
 
 
@@ -170,7 +168,7 @@ public class MenuTarefas {
 
 
 
-                        listarTarefas(tarefaDAO.findByIdDesenvolvedor(Long.parseLong(JOptionPane.showInputDialog("Id desenvolvedor"))));
+                        listarTarefas(tarefaDAO.findByIdDesenvolvedor(JOptionPane.showInputDialog("Id desenvolvedor")));
 
 
 
@@ -195,7 +193,7 @@ public class MenuTarefas {
 
 
 
-                        listarTarefas(tarefaDAO.findByIdProjetoStatus(Long.parseLong(JOptionPane.showInputDialog("Id do projeto")), JOptionPane.showInputDialog("Estado da tarefa")));
+                        listarTarefas(tarefaDAO.findByIdProjetoStatus(JOptionPane.showInputDialog("Id do projeto"), JOptionPane.showInputDialog("Estado da tarefa")));
 
 
 
@@ -204,7 +202,7 @@ public class MenuTarefas {
 
 
 
-                        JOptionPane.showMessageDialog(null, tarefaDAO.countByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id do projeto"))));
+                        JOptionPane.showMessageDialog(null, tarefaDAO.countByIdProjeto(JOptionPane.showInputDialog("Id do projeto")));
 
 
 

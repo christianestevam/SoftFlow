@@ -1,29 +1,29 @@
 package ufc.br.softflow.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
+@NamedQueries({
+        @NamedQuery(name = "tarefaPorId", query = "select t from Tarefa t where t.idTarefa = :id"),
+        @NamedQuery(name = "findByProjeto", query = "select t from Tarefa t where t.projeto.idProjeto = :id"),
+        @NamedQuery(name = "findByDesenvolvedor", query = "select t from Tarefa t where t.desenvolvedor.idDesenvolvedor = :id")
+})
+
 @Entity
+@Document(collection = "tarefa")
 @Table(name = "tarefa")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQueries({
-    @NamedQuery(name = "tarefaPorId", query = "select t from Tarefa t where t.idTarefa = :id"),
-    @NamedQuery(name = "findByProjeto", query = "select t from Tarefa t where t.projeto.idProjeto = :id"),
-    @NamedQuery(name = "findByDesenvolvedor", query = "select t from Tarefa t where t.desenvolvedor.idDesenvolvedor = :id")
-})
 
 public class Tarefa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tarefa")
-    private Long idTarefa;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String idTarefa;
 
     private String descricaoTarefa;
     private String statusTarefa;
@@ -42,8 +42,8 @@ public class Tarefa {
 
     @Override
     public String toString(){
-        String idstr = Long.toString(desenvolvedor.getIdDesenvolvedor());
-        String idstr2 = Long.toString(projeto.getIdProjeto());
+        String idstr = desenvolvedor.getIdDesenvolvedor();
+        String idstr2 = projeto.getIdProjeto();
         return "Tarefa [id:" + idTarefa + ", descricao:" + descricaoTarefa + ", status:" + statusTarefa + ", dataInicio:" + dataInicioTarefa + ", dataFim:" + dataFimTarefa + ", desenvolvedor:" + idstr + ", projeto:" + idstr2;
     }
 

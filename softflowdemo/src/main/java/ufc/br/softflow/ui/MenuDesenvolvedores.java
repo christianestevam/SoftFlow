@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ufc.br.softflow.dao.DesenvolvedorDAO;
 import ufc.br.softflow.dao.ProjetoDAO;
+import ufc.br.softflow.dao.jpa.DesenvolvedorJPA;
+import ufc.br.softflow.dao.jpa.ProjetoJPA;
 import ufc.br.softflow.entity.Desenvolvedor;
 
 import java.util.*;
@@ -14,10 +16,10 @@ import javax.swing.*;
 @Component
 public class MenuDesenvolvedores {
 
-    @Autowired
+    //@Autowired
     private DesenvolvedorDAO desenvolvedorDAO;
 
-    @Autowired
+    //@Autowired
     private ProjetoDAO projetoDAO;
 
     public void obterDesenvolvedor(Desenvolvedor dev){
@@ -26,10 +28,8 @@ public class MenuDesenvolvedores {
         String funcao = JOptionPane.showInputDialog("Função", dev.getFuncao());
 
         String idProjetoStr = JOptionPane.showInputDialog("idProjeto", null);
-        Integer idProjeto = null;
         if (idProjetoStr != null && !idProjetoStr.isEmpty()){
-            idProjeto = Integer.parseInt(idProjetoStr);
-            dev.setProjeto(projetoDAO.getReferenceById(idProjeto));
+            dev.setProjeto(projetoDAO.getReferenceById(idProjetoStr));
         } else {
             dev.setProjeto(null);
         }
@@ -67,7 +67,7 @@ public class MenuDesenvolvedores {
 
                 Optional<Desenvolvedor> dev;
                 Desenvolvedor deve;
-                Integer id;
+                String id;
 
                 opcao = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcao) {
@@ -87,9 +87,9 @@ public class MenuDesenvolvedores {
 
 
 
-                        dev = desenvolvedorDAO.findByIdDesenvolvedor(Long.parseLong(JOptionPane.showInputDialog("Id para exibir")));
+                        dev = desenvolvedorDAO.findById(JOptionPane.showInputDialog("Id para exibir"));
                         if(dev.isPresent()){
-                            listarDesenvolvedor(desenvolvedorDAO.findByIdDesenvolvedor(dev.get().getIdDesenvolvedor()));
+                            listarDesenvolvedor(desenvolvedorDAO.findById(dev.get().getIdDesenvolvedor()));
                         } else {
                             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
                         }
@@ -101,9 +101,8 @@ public class MenuDesenvolvedores {
 
 
 
-                        String idStr = JOptionPane.showInputDialog("Id para atualizar");
-                        if (idStr != null && !idStr.isEmpty()) {
-                            id = Integer.parseInt(idStr);
+                        id = JOptionPane.showInputDialog("Id para atualizar");
+                        if (id != null && !id.isEmpty()) {
                             dev = desenvolvedorDAO.findById(id);
                             if (dev.isPresent()) {
                                 deve = dev.get();
@@ -121,7 +120,7 @@ public class MenuDesenvolvedores {
 
 
 
-                        id = Integer.parseInt(JOptionPane.showInputDialog("Id para remover"));
+                        id = JOptionPane.showInputDialog("Id para remover");
                         dev = desenvolvedorDAO.findById(id);
                         if(dev.isPresent()){
                             desenvolvedorDAO.deleteById(id);
@@ -152,7 +151,7 @@ public class MenuDesenvolvedores {
 
 
 
-                        listarDesenvolvedores(desenvolvedorDAO.findByIdProjeto(Long.parseLong(JOptionPane.showInputDialog("Id projeto"))));
+                        listarDesenvolvedores(desenvolvedorDAO.findByIdProjeto(JOptionPane.showInputDialog("Id projeto")));
 
 
 

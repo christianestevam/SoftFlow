@@ -6,22 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication(scanBasePackages = "ufc.br.softflow")
 @EntityScan("ufc.br.softflow.entity")
-@EnableJpaRepositories("ufc.br.softflow.dao")
+//@EnableJpaRepositories("ufc.br.softflow.dao.jpa")
+@EnableMongoRepositories("ufc.br.softflow.dao.mongo")
 @Slf4j
 public class SoftflowdemoApplication implements CommandLineRunner {
 
-    @Autowired
+    //@Autowired
     private MenuDesenvolvedores menuDesenvolvedores;
-    @Autowired
+    //@Autowired
     private MenuProjetos menuProjetos;
-    @Autowired
+    //@Autowired
     private MenuTarefas menuTarefas;
 
     public static void main(String[] args) {
