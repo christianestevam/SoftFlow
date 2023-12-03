@@ -37,12 +37,12 @@ public class MenuTarefas {
         String idDesenvolvedorStr = JOptionPane.showInputDialog("IdDesenvolvedor", null);
         String idProjetoStr =JOptionPane.showInputDialog("IdProjeto", null);
         if (idDesenvolvedorStr != null && !idDesenvolvedorStr.isEmpty()){
-            tare.setDesenvolvedor(desenvolvedorDAO.getReferenceById(idProjetoStr));
+            tare.setDesenvolvedor(desenvolvedorDAO.getReferenceByIdDesenvolvedor(idProjetoStr));
         } else {
             tare.setDesenvolvedor(null);
         }
         if (idProjetoStr != null && !idProjetoStr.isEmpty()){
-            tare.setProjeto(projetoDAO.getReferenceById(idProjetoStr));
+            tare.setProjeto(projetoDAO.getReferenceByIdProjeto(idProjetoStr));
         } else {
             tare.setProjeto(null);
         }
@@ -111,9 +111,9 @@ public class MenuTarefas {
 
 
                         id = JOptionPane.showInputDialog("Id para exibir");
-                        tare = tarefaDAO.findById(id);
+                        tare = tarefaDAO.findByIdTarefa(id);
                         if (tare.isPresent()){
-                            listarTarefa(tarefaDAO.findById(id));
+                            listarTarefa(tarefaDAO.findByIdTarefa(id));
                         } else {
                             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar uma Tarefa com esse id.");
                         }
@@ -127,7 +127,7 @@ public class MenuTarefas {
 
                         id = JOptionPane.showInputDialog("Id para atualizar");
                         if (id != null && !id.isEmpty()) {
-                            tare = tarefaDAO.findById(id);
+                            tare = tarefaDAO.findByIdTarefa(id);
                             if (tare.isPresent()) {
                                 taref = tare.get();
                                 obterTarefa(taref);
@@ -145,9 +145,9 @@ public class MenuTarefas {
 
 
                         id = JOptionPane.showInputDialog("Id para remover");
-                        tare = tarefaDAO.findById(id);
+                        tare = tarefaDAO.findByIdTarefa(id);
                         if(tare.isPresent()){
-                            tarefaDAO.deleteById(id);
+                            tarefaDAO.deleteByIdTarefa(id);
                         } else {
                             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar uma Tarefa com esse id.");
                         }

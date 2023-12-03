@@ -23,7 +23,7 @@ public class Tarefa {
 
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id
-    private String id;
+    private String idTarefa;
 
     private String descricaoTarefa;
     private String statusTarefa;
@@ -42,9 +42,9 @@ public class Tarefa {
 
     @Override
     public String toString(){
-        String idstr = desenvolvedor.getId();
-        String idstr2 = projeto.getId();
-        return "Tarefa [id:" + id + ", descricao:" + descricaoTarefa + ", status:" + statusTarefa + ", dataInicio:" + dataInicioTarefa + ", dataFim:" + dataFimTarefa + ", desenvolvedor:" + idstr + ", projeto:" + idstr2;
+        String idstr = desenvolvedor.getIdDesenvolvedor();
+        String idstr2 = projeto.getIdProjeto();
+        return "Tarefa [id:" + idTarefa + ", descricao:" + descricaoTarefa + ", status:" + statusTarefa + ", dataInicio:" + dataInicioTarefa + ", dataFim:" + dataFimTarefa + ", desenvolvedor:" + idstr + ", projeto:" + idstr2;
     }
 
 }

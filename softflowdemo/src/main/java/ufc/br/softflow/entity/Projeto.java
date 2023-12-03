@@ -23,7 +23,7 @@ public class Projeto {
 
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id
-    private String id;
+    private String idProjeto;
 
     private String nomeProjeto;
 
@@ -43,7 +43,7 @@ public class Projeto {
 
     @Override
     public String toString(){
-        return "Projeto [id:" + id + ", nome:" + nomeProjeto + ", descricao:" + descricaoProjeto + ", status:" + statusProjeto + ", notas:" + notasProjeto;
+        return "Projeto [id:" + idProjeto + ", nome:" + nomeProjeto + ", descricao:" + descricaoProjeto + ", status:" + statusProjeto + ", notas:" + notasProjeto;
     }
 
 }

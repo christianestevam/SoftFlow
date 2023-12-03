@@ -79,9 +79,9 @@ public class MenuProjetos {
 
 
 
-                        proj = projetoDAO.findById(JOptionPane.showInputDialog("Id para exibir"));
+                        proj = projetoDAO.findByIdProjeto(JOptionPane.showInputDialog("Id para exibir"));
                         if(proj.isPresent()){
-                            listarProjeto(projetoDAO.findById(proj.get().getId()));
+                            listarProjeto(projetoDAO.findByIdProjeto(proj.get().getIdProjeto()));
                         } else {
                             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Projeto com esse Id");
                         }
@@ -95,7 +95,7 @@ public class MenuProjetos {
 
                         id = JOptionPane.showInputDialog("Id para atualizar");
                         if (id != null && !id.isEmpty()) {
-                            proj = projetoDAO.findById(id);
+                            proj = projetoDAO.findByIdProjeto(id);
                             if(proj.isPresent()){
                                 proje = proj.get();
                                 obterProjeto(proje);
@@ -113,10 +113,10 @@ public class MenuProjetos {
 
 
                         id = JOptionPane.showInputDialog("Id para remover");
-                        proj = projetoDAO.findById(id);
+                        proj = projetoDAO.findByIdProjeto(id);
                         if(proj.isPresent()){
                             Projeto projeto = proj.get();
-                            projetoDAO.deleteById(projeto.getId());
+                            projetoDAO.deleteByIdProjeto(projeto.getIdProjeto());
                         }
 
 

@@ -17,8 +17,10 @@ import ufc.br.softflow.entity.Tarefa;
 @Repository
 public interface ProjetoMongo extends ProjetoDAO, MongoRepository<Projeto, String> {
 
-    Optional<Projeto> findById(String id);
+    @Query("{ '_id' : ?0 }")
+    Optional<Projeto> findByIdProjeto(String idProjeto);
 
+    @Query("{ 'nomeProjeto' : ?0 }")
     Optional<Projeto> findByNomeProjeto(String nomeProjeto);
 
     List<Projeto> findAll();

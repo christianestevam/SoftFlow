@@ -8,7 +8,7 @@ import java.util.*;
 
 public interface ProjetoDAO {
 
-    Optional<Projeto> findById(String id);
+    Optional<Projeto> findByIdProjeto(String idProjeto);
 
     Optional<Projeto> findByNomeProjeto(String nomeProjeto);
 
@@ -20,8 +20,8 @@ public interface ProjetoDAO {
 
     public Projeto save(Projeto projeto);
 
-    Projeto getReferenceById(String idProjetoStr);
+    Projeto getReferenceByIdProjeto(String idProjeto);
 
-    public void deleteById(String id);
+    public void deleteByIdProjeto(String idProjeto);
 
 }

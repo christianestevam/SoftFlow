@@ -7,11 +7,11 @@ import java.util.*;
 
 public interface DesenvolvedorDAO {
 
-    Optional<Desenvolvedor> findById(String id);
+    public Desenvolvedor findByIdDesenvolvedor(String idDesenvolvedor);
 
-    Optional<Desenvolvedor> findByNome(String nome);
+    Optional<Desenvolvedor> findByNomeDesenvolvedor(String nomeDesenvolvedor);
 
-    Optional<Desenvolvedor> findByEmail(String email);
+    Optional<Desenvolvedor> findByEmailDesenvolvedor(String emailDesenvolvedor);
 
     List<Desenvolvedor> findAll();
 
@@ -19,7 +19,9 @@ public interface DesenvolvedorDAO {
 
     List<Desenvolvedor> findByIdProjeto(String idProjeto);
 
+    List<Desenvolvedor> findByNomeProjeto(String nomeProjeto);
+
     public Desenvolvedor save(Desenvolvedor desenvolvedor);
-    public void deleteById(String idDesenvolvedor);
-    public Desenvolvedor getReferenceById(String idDesenvolvedor);
+    public void deleteByIdDesenvolvedor(String idDesenvolvedor);
+    public Desenvolvedor getReferenceByIdDesenvolvedor(String idDesenvolvedor);
 }

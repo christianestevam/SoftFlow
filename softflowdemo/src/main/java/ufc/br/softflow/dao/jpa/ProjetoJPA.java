@@ -17,17 +17,17 @@ import ufc.br.softflow.entity.Desenvolvedor;
 import ufc.br.softflow.entity.Tarefa;
 
 
-//@Repository
+@Repository
 //@Primary
 //@EnableJpaRepositories
-public interface ProjetoJPA extends JpaRepository <Projeto, Integer> {
+public interface ProjetoJPA extends JpaRepository <Projeto, String> {
 
     @Query("SELECT p FROM Projeto p WHERE p.idProjeto = :idProjeto")
-    Optional<Projeto> findById(@Param("idProjeto") String idProjeto);
+    Optional<Projeto> findByIdProjeto(@Param("idProjeto") String idProjeto);
 
     // Exibir Projeto(s) por NOME
     @Query("SELECT p FROM Projeto p WHERE p.nomeProjeto = :nomeProjeto")
-    Optional<Projeto> findByNome(@Param("nomeProjeto") String nomeProjeto);
+    Optional<Projeto> findByNomeProjeto(@Param("nomeProjeto") String nomeProjeto);
 
     // Exibir todos os Projetos
     @Query("SELECT p FROM Projeto p")
@@ -45,12 +45,6 @@ public interface ProjetoJPA extends JpaRepository <Projeto, Integer> {
     @Query("SELECT COUNT(p.tarefas) FROM Projeto p WHERE p.idProjeto = :idProjeto")
     Integer findByQuantidadeTarefas(@Param("idProjeto") String idProjeto);
 
-    // Native Query
-    @Query(value = "SELECT * FROM projeto WHERE id_projeto = :idProjeto", nativeQuery = true)
-    Optional<Projeto> findByIdProjeto(@Param("idProjeto") String idProjeto);
 
-    // Native Query
-    @Query(value = "SELECT * FROM projeto WHERE nome_projeto = :nomeProjeto", nativeQuery = true)
-    Optional<Projeto> findByNomeProjeto(@Param("nomeProjeto") String nomeProjeto);
 
 }

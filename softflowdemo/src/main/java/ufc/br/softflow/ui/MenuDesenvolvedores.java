@@ -10,6 +10,7 @@ import ufc.br.softflow.dao.jpa.ProjetoJPA;
 import ufc.br.softflow.entity.Desenvolvedor;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import javax.swing.*;
 
 @Slf4j
@@ -23,20 +24,20 @@ public class MenuDesenvolvedores {
     private ProjetoDAO projetoDAO;
 
     public void obterDesenvolvedor(Desenvolvedor dev){
-        String nome = JOptionPane.showInputDialog("Nome", dev.getNome());
-        String email = JOptionPane.showInputDialog("Email", dev.getEmail());
-        String funcao = JOptionPane.showInputDialog("Função", dev.getFuncao());
+        String nome = JOptionPane.showInputDialog("Nome", dev.getNomeDesenvolvedor());
+        String email = JOptionPane.showInputDialog("Email", dev.getEmailDesenvolvedor());
+        String funcao = JOptionPane.showInputDialog("Função", dev.getFuncaoDesenvolvedor());
 
         String idProjetoStr = JOptionPane.showInputDialog("idProjeto", null);
         if (idProjetoStr != null && !idProjetoStr.isEmpty()){
-            dev.setProjeto(projetoDAO.getReferenceById(idProjetoStr));
+            dev.setProjeto(projetoDAO.getReferenceByIdProjeto(idProjetoStr));
         } else {
             dev.setProjeto(null);
         }
 
-        dev.setNome(nome);
-        dev.setEmail(email);
-        dev.setFuncao(funcao);
+        dev.setNomeDesenvolvedor(nome);
+        dev.setEmailDesenvolvedor(email);
+        dev.setFuncaoDesenvolvedor(funcao);
     }
 
     public void listarDesenvolvedor(Optional<Desenvolvedor> dev){
@@ -69,6 +70,9 @@ public class MenuDesenvolvedores {
                 Desenvolvedor deve;
                 String id;
 
+                List<Desenvolvedor> allDevs = desenvolvedorDAO.findAll();
+                Object[] devIds = allDevs.stream().map(Desenvolvedor::getIdDesenvolvedor).toArray();;
+
                 opcao = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcao) {
                     case 1:     // Inserir Desenvolvedor
@@ -83,50 +87,60 @@ public class MenuDesenvolvedores {
 
 
                         break;
-                    case 2:     // Exibir Desenvolvedor por id
+                    case 2:     // Exibir Desenvolvedor por id (BOX)
 
 
 
-                        dev = desenvolvedorDAO.findById(JOptionPane.showInputDialog("Id para exibir"));
-                        if(dev.isPresent()){
-                            listarDesenvolvedor(desenvolvedorDAO.findById(dev.get().getId()));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
-                        }
-
-
-
-                        break;
-                    case 3:     // Atualizar Desenvolvedor por id
-
-
-
-                        id = JOptionPane.showInputDialog("Id para atualizar");
-                        if (id != null && !id.isEmpty()) {
-                            dev = desenvolvedorDAO.findById(id);
-                            if (dev.isPresent()) {
-                                deve = dev.get();
-                                obterDesenvolvedor(deve);
-                                desenvolvedorDAO.save(deve);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
-                            }
-                        }
+//                        devIds = allDevs.stream().map(Desenvolvedor::getIdDesenvolvedor).toArray();
+//
+//                        String selectedId = (String) JOptionPane.showInputDialog(null, "Selecione o ID do desenvolvedor", "Exibir Desenvolvedor", JOptionPane.QUESTION_MESSAGE, null, devIds, devIds[0]);
+//
+//                        if (selectedId != null) {
+//                            dev = desenvolvedorDAO.findByIdDesenvolvedor(selectedId);
+//                            if(dev.isPresent()) {
+//                                listarDesenvolvedor(dev);
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "Não foi possível encontrar um Desenvolvedor com esse Id.");
+//                            }
+//                        }
 
 
 
                         break;
-                    case 4:     // Remover Desenvolvedor por id
+                    case 3:     // Atualizar Desenvolvedor por id (BOX)
 
 
 
-                        id = JOptionPane.showInputDialog("Id para remover");
-                        dev = desenvolvedorDAO.findById(id);
-                        if(dev.isPresent()){
-                            desenvolvedorDAO.deleteById(id);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar um Desenvolvedor com esse Id.");
-                        }
+//                        selectedId = (String) JOptionPane.showInputDialog(null, "Selecione o ID do desenvolvedor", "Atualizar Desenvolvedor", JOptionPane.QUESTION_MESSAGE, null, devIds, devIds[0]);
+//
+//                        if (selectedId != null) {
+//                            dev = desenvolvedorDAO.findByIdDesenvolvedor(selectedId);
+//                            if (dev.isPresent()) {
+//                                deve = dev.get();
+//                                obterDesenvolvedor(deve);
+//                                desenvolvedorDAO.save(deve);
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "Não foi possível encontrar um Desenvolvedor com esse Id.");
+//                            }
+//                        }
+
+
+
+                        break;
+                    case 4:     // Remover Desenvolvedor por id (BOX)
+
+
+
+//                        selectedId = (String) JOptionPane.showInputDialog(null, "Selecione o ID do desenvolvedor", "Remover Desenvolvedor", JOptionPane.QUESTION_MESSAGE, null, devIds, devIds[0]);
+//
+//                        if (selectedId != null) {
+//                            dev = desenvolvedorDAO.findByIdDesenvolvedor(selectedId);
+//                            if (dev.isPresent()) {
+//                                desenvolvedorDAO.deleteById(selectedId);
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "Não foi possível encontrar um Desenvolvedor com esse Id.");
+//                            }
+//                        }
 
 
 
@@ -135,23 +149,37 @@ public class MenuDesenvolvedores {
 
 
 
-                        String nome = JOptionPane.showInputDialog("Nome desenvolvedor");
-                        dev = desenvolvedorDAO.findByNome(nome);
-
-                        if(!dev.isEmpty()){
+                        Object[] devNomes = allDevs.stream().map(Desenvolvedor::getNomeDesenvolvedor).toArray();
+                        String selectedNome = (String) JOptionPane.showInputDialog(null, "Selecione o nome do desenvolvedor", "Exibir Desenvolvedor", JOptionPane.QUESTION_MESSAGE, null, devNomes, devNomes[0]);
+                        dev = desenvolvedorDAO.findByNomeDesenvolvedor(selectedNome);
+                        if(dev.isPresent()) {
                             listarDesenvolvedor(dev);
                         } else {
-                            JOptionPane.showMessageDialog(null,"Não foi possivel encontrar um Desenvolvedor com esse Nome.");
+                            JOptionPane.showMessageDialog(null, "Não foi possível encontrar um Desenvolvedor com esse Id.");
                         }
 
 
 
                         break;
-                    case 6:     // Exibir Desenvolvedor por idProjeto
+                    case 6:     // Exibir Desenvolvedor por Projeto(nome)
 
 
 
-                        listarDesenvolvedores(desenvolvedorDAO.findByIdProjeto(JOptionPane.showInputDialog("Id projeto")));
+//                        Set<String> projNomesSet = allDevs.stream().map(dev -> dev.getProjeto().getNomeProjeto()).collect(Collectors.toSet());
+//                        Object[] projNomes = projNomesSet.toArray();
+//
+//                        selectedNome = (String) JOptionPane.showInputDialog(null, "Selecione o nome do projeto", "Exibir Desenvolvedor", JOptionPane.QUESTION_MESSAGE, null, projNomes, projNomes[0]);
+//
+//                        if (selectedNome != null) {
+//                            List<Desenvolvedor> devs = desenvolvedorDAO.findByNomeProjeto(selectedNome);
+//                            if (!devs.isEmpty()) {
+//                                listarDesenvolvedores(devs);
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "Não foi possível encontrar um Desenvolvedor com esse nome de projeto.");
+//                            }
+//                        }
+
+
 
 
 

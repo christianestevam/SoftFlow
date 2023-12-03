@@ -21,11 +21,11 @@ public class Desenvolvedor {
 
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id
-    private String id;
+    private String idDesenvolvedor;
 
-    private String nome;
-    private String email;
-    private String funcao;
+    private String nomeDesenvolvedor;
+    private String emailDesenvolvedor;
+    private String funcaoDesenvolvedor;
 
     // Um projeto pode ter vários desenvolvedores
     @ManyToOne(fetch=FetchType.EAGER)
@@ -41,12 +41,12 @@ public class Desenvolvedor {
 
         String idstr;
         if(projeto != null){
-            idstr = projeto.getId();
+            idstr = projeto.getNomeProjeto();
         } else {
             idstr = "null";
         }
 
-        return "Desenvolvedor [id:" + id + ", nome:" + nome + ", email:" + email + ", funcao:" + funcao + ", projeto:" + idstr + "]";
+        return "Desenvolvedor [id:" + idDesenvolvedor + ", nome:" + nomeDesenvolvedor + ", email:" + emailDesenvolvedor + ", funcao:" + funcaoDesenvolvedor + ", projeto:" + idstr + "]";
     }
 
 

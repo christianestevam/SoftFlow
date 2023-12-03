@@ -14,10 +14,11 @@ import ufc.br.softflow.entity.Tarefa;
 
 @Primary
 @Repository
-@EnableMongoRepositories
+//@EnableMongoRepositories
 public interface TarefaMongo extends TarefaDAO, MongoRepository<Tarefa, String> {
 
-    //List<Tarefa> findById(String id);
+    @Query("{ 'idTarefa' : ?0 }")
+    Optional<Tarefa> findByIdTarefa(String idTarefa);
 //
 //    @Query("{ 'desenvolvedor.id' : { $regex: ?0 } }")
 //    List<Tarefa> findByIdDesenvolvedor(String idDesenvolvedor);

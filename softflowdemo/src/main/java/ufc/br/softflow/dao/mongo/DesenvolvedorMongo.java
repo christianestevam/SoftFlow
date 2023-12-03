@@ -3,7 +3,6 @@ package ufc.br.softflow.dao.mongo;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -16,17 +15,23 @@ import ufc.br.softflow.entity.Tarefa;
 @Repository
 public interface DesenvolvedorMongo extends DesenvolvedorDAO, MongoRepository<Desenvolvedor, String> {
 
-    Optional<Desenvolvedor> findById(String id);
+//    @Query("{ '_id' : ?0 }")
+    public Desenvolvedor findByIdDesenvolvedor(String idDesenvolvedor);
 
-    Optional<Desenvolvedor> findByNome(String nome);
+    @Query("{ 'nomeDesenvolvedor' : ?0 }")
+    Optional<Desenvolvedor> findByNomeDesenvolvedor(String nomeDesenvolvedor);
 
-    Optional<Desenvolvedor> findByEmail(String email);
+    @Query("{ 'emailDesenvolvedor' : ?0 }")
+    Optional<Desenvolvedor> findByEmailDesenvolvedor(String emailDesenvolvedor);
 
     List<Desenvolvedor> findAll();
 
     @Query("{ 'tarefas.desenvolvedor.id' : { $regex: ?0 } }")
     List<Tarefa> findTarefas(String idDesenvolvedor);
 
-    @Query("{ 'projeto.id' : { $regex: ?0 } }")
+    @Query("{ 'projeto.id' : ?0 }")
     List<Desenvolvedor> findByIdProjeto(String idProjeto);
+
+    @Query("{ 'projeto.nomeProjeto' : ?0 }")
+    List<Desenvolvedor> findByNomeProjeto(String nomeProjeto);
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface TarefaDAO {
     
-    Optional<Tarefa> findById(String id);
+    Optional<Tarefa> findByIdTarefa(String idTarefa);
 
 //    List<Tarefa> findByIdProjeto(String idProjeto);
 //
@@ -22,5 +22,5 @@ public interface TarefaDAO {
 
     public Tarefa save(Tarefa tarefa);
 
-    public void deleteById(String id);
+    public void deleteByIdTarefa(String idTarefa);
 }

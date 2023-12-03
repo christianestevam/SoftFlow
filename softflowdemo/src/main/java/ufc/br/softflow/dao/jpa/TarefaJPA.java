@@ -14,10 +14,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 //@Primary
 //@EnableJpaRepositories
-public interface TarefaJPA extends JpaRepository <Tarefa, Integer> {
+public interface TarefaJPA extends JpaRepository <Tarefa, String> {
 
     // Exibir Tarefa(s) pelo ID do projeto
     @Query(value = "SELECT * FROM tarefa WHERE id_projeto = :idProjeto", nativeQuery = true)
@@ -33,7 +33,7 @@ public interface TarefaJPA extends JpaRepository <Tarefa, Integer> {
 
     // Exibir Tarefa(s) pelo ID do projeto e ESTADO da tarefa
     @Query(value = "SELECT * FROM tarefa WHERE id_projeto = :idProjeto AND status_tarefa = :statusTarefa", nativeQuery = true)
-    List<Tarefa> findByIdProjetoStatus(@Param("idProjeto") Long idProjeto, @Param("statusTarefa") String statusTarefa);
+    List<Tarefa> findByIdProjetoStatus(@Param("idProjeto") String idProjeto, @Param("statusTarefa") String statusTarefa);
 
     // Exibir quantidade total de tarefas do projeto
     @Query(value = "SELECT COUNT(*) FROM tarefa WHERE id_projeto = :idProjeto", nativeQuery = true)

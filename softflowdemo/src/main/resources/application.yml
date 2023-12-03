@@ -1,5 +1,0 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb+srv://llucasanthony:admin@cluster0.5ncgpbn.mongodb.net/?retryWrites=true&w=majority
-      database: softflowdemo
